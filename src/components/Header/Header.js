@@ -9,12 +9,12 @@ const Header = (props) => {
   }
 
   return (
-    <Header
+    <header
       className={"header " + props.className}
     >
       <Button onClick={onClose}>Закрыть</Button>
       <span>{tg.initDataUnsafe?.user?.username}</span>
-    </Header>
+    </header>
   );
 };
 
