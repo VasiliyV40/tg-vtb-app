@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from "../Button/Button";
 import {useTelegram} from "../../hooks/useTelegram";
+import ExchangeRates from "../ExchangeRates/ExchangeRates";
 
 const Header = (props) => {
 
@@ -11,7 +12,9 @@ const Header = (props) => {
       className={"header " + props.className}
     >
       <Button onClick={onClose}>Закрыть</Button>
-      <span>{user?.username}</span>
+
+      <ExchangeRates/>
+
     </header>
   );
 };
