@@ -1,6 +1,6 @@
 import React from 'react';
 import "./ExchangeRates.css"
-import logo from "../../images/index-bg.svg"
+import logo from "../../images/index-bg.png"
 
 const ExchangeRates = (props) => {
   return (
