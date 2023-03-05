@@ -1,4 +1,5 @@
 import './App.css';
+import "./fonts/sp-pro-display.css"
 import {useEffect} from "react";
 import Header from "./components/Header";
 import {useTelegram} from "./hooks/useTelegram";

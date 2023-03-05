@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "display";
+  font-style:normal;
+  font-weight: 600;
+  src: url("./sfprodislaybold.otf");
+}
+
+@font-face {
+  font-family: "display";
+  font-style:normal;
+  font-weight: 500;
+  src: url("./sfprodisplaymedium.otf");
+}
+
+@font-face {
+  font-family: "display";
+  font-style:normal;
+  font-weight: 400;
+  src: url("./sfprodisplayregular.otf");
+}

@@ -8,4 +8,6 @@ body {
   /*background: var(--tg-theme-bg-color);*/
   background-color: #F0F2F5;
   color: #000000;
+  font-family: 'display';
+  font-weight: 400;
 }

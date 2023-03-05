@@ -1,11 +1,14 @@
 .wrapper{
   display: flex;
+  justify-content: space-between;
   padding: 16px 24px;
-  border-bottom: 1px solid #E3E3E;
+  background-color: #ffffff;
+  border-bottom: 1px solid #E3E3E3;
 }
 
 .ratesItem {
   display: flex;
+  align-items: center;
 }
 
 .icon {
