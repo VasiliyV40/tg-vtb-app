@@ -15,7 +15,7 @@ const ExchangeRates = (props) => {
         <span>447,1 - 449,7 ₸</span>
         <span>^</span>
       </div>
-      <IMAG/>
+      <img src={IMAG}/>
     </div>
   );
 };
