@@ -1,6 +1,6 @@
 import React from 'react';
 import "./ExchangeRates.css"
-import IMAG from "../../images/index-bg.svg"
+import logo from "../../images/index-bg.svg"
 
 const ExchangeRates = (props) => {
   return (
@@ -15,7 +15,7 @@ const ExchangeRates = (props) => {
         <span>447,1 - 449,7 ₸</span>
         <span>^</span>
       </div>
-      <img src={IMAG}/>
+      <img src={logo}/>
     </div>
   );
 };
