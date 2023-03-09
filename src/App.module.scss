@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /*background: var(--tg-theme-bg-color);*/
+  background-color: #F0F2F5;
+  color: #000000;
+  font-family: 'display';
+  font-weight: 400;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 25px;
+  text-align: center;
+}
+
+input {
+  font-size: 15px;
+  line-height: 18px;
+
+  &::placeholder {
+    color: red;
+  }
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+:global{
+  .ant-input-affix-wrapper-status-error, .ant-input-group-wrapper-status-error .ant-input, .ant-input-group-wrapper-status-error .ant-input-group-addon {
+    border-color: #E53434 !important;
+  }
+  .ant-form-item-has-error .ant-form-item-explain-error {
+    color:#E53434;
+  }
+}

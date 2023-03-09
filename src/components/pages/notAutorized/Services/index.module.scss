@@ -1,0 +1,17 @@
+.wrapper {
+  padding: 16px;
+}
+
+.link {
+  color:#989898;
+  border-bottom: 1px solid #989898;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 19px;
+  display: inline-block;
+
+  &:hover {
+    color:#989898;
+    border-bottom: 1px solid #989898;
+  }
+}

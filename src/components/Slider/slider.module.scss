@@ -1,0 +1,27 @@
+.slideBlock {
+  padding: 0 8px;
+}
+
+.slideItem {
+  background: #D9D9D9;
+  border-radius: 12px;
+  color: #A4A4A4;
+  padding: 12px;
+  margin: auto;
+  overflow: hidden; /* clearfix */
+  &:before {
+    content: "";
+    padding-top: 100%;
+    float: left;
+  }
+}
+
+.wrapper {
+  padding: 16px 0;
+  background-color: #ffffff;
+  :global {
+    .alice-carousel__dots,.alice-carousel__prev-btn, .alice-carousel__next-btn {
+      display: none;
+    }
+  }
+}

@@ -1,13 +1,15 @@
 import React from 'react';
-import './Button.css'
+import classes from './button.module.scss'
 
 const Button = (props) => {
 
   return (
     <button
-      {...props}
-      className={'button ' + props.className}
-    />
+
+      className={`${classes.button} ${props.fullWidth ? classes.fullWidth : ''}`}
+    >
+      {props.children}
+    </button>
   );
 };
 

@@ -1,21 +1,20 @@
 import React from 'react';
-import "./ExchangeRates.css"
-import logo from "../../images/index-bg.png"
+import classes from './exchange.module.scss'
+import ExchangeItem from './ExchangeItem';
 
 const ExchangeRates = (props) => {
   return (
-    <div className={'wrapper'}>
-      <div className={'ratesItem'}>
-        <span className={'icon'}></span>
-        <span>447,1 - 449,7 ₸</span>
-        <span>^</span>
-      </div>
-      <div className={'ratesItem'}>
-        <span className={'icon'}></span>
-        <span>447,1 - 449,7 ₸</span>
-        <span>^</span>
-      </div>
-      <img src={logo}/>
+    <div className={classes.wrapper}>
+      <ExchangeItem
+        value="447,1 - 449,7"
+        currency="usd"
+        chart="up"
+      />
+      <ExchangeItem
+        value="5,9 - 6,1"
+        currency="rub"
+        chart="down"
+      />
     </div>
   );
 };
