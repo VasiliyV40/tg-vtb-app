@@ -19,7 +19,7 @@ import Payment from "./components/pages/Payment/Payment";
 import IssueCard from "./components/pages/IssueCard/IssueCard";
 import Accounts from "./components/pages/Accounts/Accounts";
 
-const {tg, onToggleButton} = useTelegram()
+const {tg, onToggleButton} = useTelegram();
 
 class App extends Component {
 

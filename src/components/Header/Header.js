@@ -5,13 +5,14 @@ import ExchangeRates from '../ExchangeRates';
 
 const Header = (props) => {
 
-  const {user, onClose } = useTelegram()
+  const {tg, user, onClose } = useTelegram();
+  tg.BackButton.isVisible = true
 
   return (
     <header
       className={"header " + props.className}
     >
-      <Button onClick={onClose}>Закрыть</Button>
+      {/*<Button onClick={onClose}>Закрыть</Button>*/}
 
       <ExchangeRates/>
 
