@@ -17,19 +17,18 @@ const Header = (props) => {
     tg.BackButton.isVisible = true;
     tg.BackButton.onClick(() =>navigate(-1));
   }
-  
-
+  /*
   const aaa = () => {
     navigate(-1)
     console.log("FFFFFF =>", location)
-  }
+  }*/
 
 
   return (
     <header
       className={"header " + props.className}
     >
-      <Button onClick={() => aaa()}>Закрыть</Button>
+      {/*<Button onClick={() => aaa()}>Закрыть</Button>*/}
       <ExchangeRates/>
     </header>
   );
