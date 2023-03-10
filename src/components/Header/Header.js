@@ -8,7 +8,7 @@ const Header = (props) => {
 
   const {tg, user, onClose } = useTelegram();
   tg.BackButton.isVisible = true;
-  tg.WebAppUser.photo_url = "https://smmplanner.com/blog/content/images/2021/07/SaDlk7FV3e0--1-.jpg"
+  tg.WebAppUser.photo_url = "https://relaxed-seahorse-0c907a.netlify.app/static/media/credit-icon.6ecac5f4e62fca295873ca7e82c545fe.svg"
 
 
   return (
