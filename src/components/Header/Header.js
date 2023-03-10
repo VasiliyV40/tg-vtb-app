@@ -8,17 +8,14 @@ const Header = (props) => {
 
   const {tg, user, onClose } = useTelegram();
   tg.BackButton.isVisible = true;
-  tg.WebAppUser.photo_url = "https://relaxed-seahorse-0c907a.netlify.app/static/media/credit-icon.6ecac5f4e62fca295873ca7e82c545fe.svg"
-
+  tg.BackButton.onClick(onClose);
 
   return (
     <header
       className={"header " + props.className}
     >
       {/*<Button onClick={onClose}>Закрыть</Button>*/}
-
       <ExchangeRates/>
-
     </header>
   );
 };
