@@ -10,7 +10,7 @@ const Header = (props) => {
   const {tg, user, onClose } = useTelegram();
   const navigate = useNavigate();
   tg.BackButton.isVisible = true;
-  tg.BackButton.onClick(navigate(-1));
+  tg.BackButton.onClick(() =>navigate(-1));
 
   const aaa = () => {
     console.log("FFFFFF => ");
