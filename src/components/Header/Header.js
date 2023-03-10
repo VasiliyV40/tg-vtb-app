@@ -2,19 +2,27 @@ import React from 'react';
 import Button from '../Button/Button';
 import {useTelegram} from '../../hooks/useTelegram';
 import ExchangeRates from '../ExchangeRates';
-import account from "../../../images/account_icon.svg";
+import { useNavigate } from "react-router-dom";
+
 
 const Header = (props) => {
 
   const {tg, user, onClose } = useTelegram();
-  tg.BackButton.isVisible = true;
-  tg.BackButton.onClick(onClose);
+  const navigate = useNavigate();
+
+  tg.BackButton.onClick(navigate(-1))
+
+  const aaa = () => {
+    console.log("FFFFFF => ");
+    navigate(-1)
+  }
+
 
   return (
     <header
       className={"header " + props.className}
     >
-      {/*<Button onClick={onClose}>Закрыть</Button>*/}
+      <Button onClick={() => aaa()}>Закрыть</Button>
       <ExchangeRates/>
     </header>
   );

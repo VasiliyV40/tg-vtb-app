@@ -5,7 +5,7 @@ const Button = (props) => {
 
   return (
     <button
-
+      onClick={props.onClick}
       className={`${classes.button} ${props.fullWidth ? classes.fullWidth : ''}`}
     >
       {props.children}
