@@ -33,6 +33,7 @@ input {
   flex-direction: column;
   min-height: 100vh;
   width: calc(100% - 30px);
+  overflow-x: hidden;
 }
 
 :global{
