@@ -73,10 +73,10 @@ class Accounts extends Component {
     return (
       <div className={classes.wrapper}>
 
-        <h2>Cчета</h2>
+        <h2 style={{marginBottom: 20}}>Cчета</h2>
         <Card
           style={{borderRadius: 11}}
-          bodyStyle={{padding: "24px 16px 32px 16px", }}
+          bodyStyle={{padding: "24px 16px 32px 16px"}}
         >
           <Skeleton loading={loading} active>
             <Divider orientation="left">Баланс:</Divider>
