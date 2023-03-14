@@ -10,6 +10,9 @@
   line-height: 19px;
   height: 100%;
   color: #000000;
+  &.service {
+    padding: 20px 16px;
+  }
 
   .verticalText {
     margin-top: auto;
@@ -26,9 +29,16 @@
   &.vertical {
     flex-direction: column;
     min-height: 140px;
+
+
     img {
       width: 70px;
       height: 70px;
+      &.round{
+        background-color: #f0f0f0;
+        border-radius: 100px;
+        overflow: hidden;
+      }
     }
   }
 }

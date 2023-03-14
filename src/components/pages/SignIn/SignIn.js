@@ -29,7 +29,7 @@ class SignIn extends Component {
     const validateInput = (name, val) => {
       if (name === "phone" && val.length !== 10) {
         return {message: "Поле должно содержать 10 символов"}
-      } else if (name === "password" && val.length < 7){
+      } else if (name === "password" && val.length < 6){
         return {message: "Поле должно быть больше 6-ти символов"}
       } else return null
     }

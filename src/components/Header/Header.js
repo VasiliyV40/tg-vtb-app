@@ -17,11 +17,11 @@ const Header = (props) => {
     tg.BackButton.isVisible = true;
     tg.BackButton.onClick(() =>navigate(-1));
   }
-  /*
+
   const aaa = () => {
     navigate(-1)
     console.log("FFFFFF =>", location)
-  }*/
+  }
 
 
   return (
