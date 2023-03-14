@@ -28,7 +28,7 @@ const PhoneInput = (props) => {
       style={{
         width: '100%',
       }}
-      inputMode="numeric"
+      inputMode="tel"
       value={data}
       placeholder="Введите номер телефона"
       className={classes.input}
