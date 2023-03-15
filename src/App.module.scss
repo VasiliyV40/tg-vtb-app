@@ -19,6 +19,22 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 18px;
+  margin-bottom: 16px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 input {
   font-size: 15px;
   line-height: 18px;
