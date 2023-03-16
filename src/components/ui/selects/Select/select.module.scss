@@ -1,0 +1,23 @@
+.wrapper {
+  height: 48px;
+
+  .select {
+
+    :global{
+      .ant-select-selector {
+        height: 48px!important;
+
+        .ant-select-selection-item {
+          line-height: 46px;
+        }
+      }
+      input {
+        padding: 10px;
+        height: 48px;
+      }
+    }
+    .option {
+
+    }
+  }
+}

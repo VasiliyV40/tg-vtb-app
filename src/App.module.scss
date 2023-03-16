@@ -52,7 +52,9 @@ input {
 }
 
 :global{
-  .ant-input-affix-wrapper-status-error, .ant-input-group-wrapper-status-error .ant-input, .ant-input-group-wrapper-status-error .ant-input-group-addon {
+  .ant-input-affix-wrapper-status-error,
+  .ant-input-group-wrapper-status-error .ant-input,
+  .ant-input-group-wrapper-status-error .ant-input-group-addon{
     border-color: #E53434 !important;
   }
   .ant-form-item-has-error .ant-form-item-explain-error {

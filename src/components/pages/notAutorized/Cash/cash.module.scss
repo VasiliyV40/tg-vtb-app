@@ -1,5 +1,8 @@
 .wrapper {
   padding: 16px;
+  &.loading{
+    filter: blur(4px);
+  }
   .tabs {
     :global {
       .ant-tabs-tab {
@@ -16,6 +19,10 @@
       }
       .ant-form-item-label {
         padding-bottom: 2px;
+
+        label {
+          height: 24px;
+        }
       }
     }
   }

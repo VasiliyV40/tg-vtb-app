@@ -42,8 +42,6 @@ class App extends Component {
       </Routes>
     )
 
-    console.log("State =>", this.props)
-
     if (this.props.signIn){
       routes = (
         <Routes>

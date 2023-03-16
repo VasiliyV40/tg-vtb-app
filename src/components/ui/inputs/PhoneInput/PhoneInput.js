@@ -1,11 +1,12 @@
 import React from 'react';
 import {Form, Input, Select} from "antd";
 import classes from './input.module.scss'
+import {MaskedInput} from "antd-mask-input";
 
 const {Option} = Select;
 
 const prefixSelector = (
-  <Form.Item name="prefix" noStyle>
+  <Form.Item name="prefix" noStyle initialValue={"7"}>
     <Select
       style={{
         width: 70,
@@ -17,22 +18,20 @@ const prefixSelector = (
   </Form.Item>
 )
 
-
-
 const PhoneInput = (props) => {
   const {onChange, name, data} = props
 
   return (
-    <Input
+    <MaskedInput
       addonBefore={prefixSelector}
       style={{
         width: '100%',
       }}
-      inputMode="tel"
-      value={data}
-      placeholder="Введите номер телефона"
       className={classes.input}
-      onChange={e => onChange(name, e.target.value.replace(/[^+\d]/g, ''))}
+      name={name}
+      size={"large"}
+      mask={'(000) 000-00-00'}
+      onChange={onChange}
     />
   );
 };

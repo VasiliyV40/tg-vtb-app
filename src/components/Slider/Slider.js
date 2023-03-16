@@ -25,7 +25,7 @@ class Slider extends Component {
       <div className={classes.wrapper}>
         <AliceCarousel mouseTracking {...settings} items={data.map((el, key )=>{
           return (
-            <SlideItem key={key} title={el.title} onDragStart={handleDragStart} />
+            <SlideItem key={key} {...el} onDragStart={handleDragStart} />
           )
         })}/>
       </div>

@@ -1,29 +1,171 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import classes from './cash.module.scss';
-import {Button, Card, Checkbox, Col, DatePicker, Form, Input, Row, Select, Space, Tabs} from 'antd';
-import ServiceButton from '../../../ui/buttons/ServiceButton';
+import {
+  Card,
+  Col,
+  Form,
+  Row,
+  Tabs,
+  notification,
+} from 'antd';
+
 import PhoneInput from "../../../ui/inputs/PhoneInput";
+import PrimaryButton from "../../../ui/buttons/PrimaryButton";
+import {changeInput, clearForm} from "../../../../store/actions/gettingLoan";
+import TextInput from "../../../ui/inputs/TextInput";
+import Select from "../../../ui/selects/Select";
+import MaskInput from "../../../ui/inputs/MaskInput";
+import DateSelect from "../../../ui/selects/DateSelect";
+import Checkbox from "../../../ui/selects/Checkbox";
+import Loader from "../../../Loader/Loader";
 
 
 
 class Cash extends Component {
 
+  personalDataForm = React.createRef();
+  passportDataForm = React.createRef();
+  incomeInformationForm = React.createRef();
+
   state = {
-    step: 1
+    step: 1,
+    loading: false
+  }
+
+  getFormRef = (val) => {
+    switch (val) {
+      case 1: return this.personalDataForm;
+      case 2: return this.passportDataForm;
+      case 3: return this.incomeInformationForm;
+      default: return false;
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.step === prevState.step){
+      this.getFormRef(this.state.step).current.setFieldsValue({...this.props.form})
+    }
   }
 
 
-
   render() {
-    const onStepChange = (value, maxStep) => {
-      if (value > maxStep || value === 0){
+
+    const openNotification = (placement) => {
+      notification.success({
+        message: "Заявка успешно отправлена",
+        placement
+      });
+    };
+
+    const onStepChange = (value, maxStep, formRef) => {
+      if (value === 0){
         return false;
-      }
-      else {
+      } else if(!formRef ){
         this.setState({
           step: value
         });
+      } else if (value - 1 === maxStep){
+        formRef.current.validateFields()
+          .then(data =>{
+            this.setState({
+              loading: true
+            });
+            setTimeout(()=>{
+              this.props.clearForm()
+              this.setState({
+                step: 1,
+                loading:false
+              });
+              openNotification('bottom')
+            }, 3000)
+          })
+          .catch(error => {});
+      } else {
+        formRef.current.validateFields()
+          .then(data =>{
+            this.setState({
+              step: value
+            });
+          })
+          .catch(error => {});
+      }
+    }
+
+    const onStepChangeTab = (step, currentStep, stepCount) => {
+      if (step < currentStep){
+        this.setState({
+          step
+        });
+      } else if (step > currentStep) {
+        console.log("======== => ", currentStep + 1, this.getFormRef(currentStep + 1))
+        this.getFormRef(currentStep).current.validateFields()
+          .then(data => {
+
+            this.setState({
+              step: currentStep + 1
+            });
+            console.log("Data", this.state.step)
+          })
+          .catch(error => {})
+
+        //console.log("!!!!!! => ", aaa)
+
+
+      } else return false
+    }
+
+    const getRules = (id, val) => {
+      switch (id) {
+        case "required":
+          return [
+            {
+              required: true,
+              message: 'Обязательное поле',
+            }
+          ];
+        case "minLength":
+          return [
+            {
+              required: true,
+              message: 'Обязательное поле',
+            },
+            {
+              type: 'string',
+              min: 2,
+              message: 'Слишком мало символов',
+            }
+          ];
+        case "length":
+          return [
+            {
+              required: true,
+              message: 'Обязательное поле',
+            },
+            {
+              len: val,
+              message: `Должно содержать ${val} цифр`,
+            }
+          ];
+        case "phone":
+          return [
+            {
+              required: true,
+              message: 'Обязательное поле',
+            },
+            {
+              len: val,
+              message: `Должно содержать ${val} цифр`,
+            }
+          ];
+
+        case "date":
+          return [
+            {
+              required: true, message: 'Необходимо указать дату'
+            }
+          ];
+
       }
     }
 
@@ -35,39 +177,150 @@ class Cash extends Component {
 
     const dataSource = ["Телевидение", "Радио", "Пресса", "Печатные материалы банка (буклеты, плакаты)", "Наружная реклама", "Интернет реклама", "Рекомендации близких, друзей, плакаты", "Уже являюсь клиентом банка ВТБ (Казахстан)", "Рекламное сообщение, письмо"]
 
-    const { Option } = Select;
+    const {changeInput} = this.props
+
+    const formPersonalData = {
+      ref: this.personalDataForm,
+      items: [
+        {
+          name: "secondName",
+          label: "Фамилия",
+          rules: getRules("minLength"),
+          children: <TextInput name={"secondName"} onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+        },
+        {
+          name: "name",
+          label: "Имя",
+          rules: getRules("minLength"),
+          children: <TextInput name={"name"} onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+        },
+        {
+          name: "thirdName",
+          label: "Отчество",
+          rules: getRules("minLength"),
+          children: <TextInput name={"thirdName"} onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+        },
+        {
+          name: "IIN",
+          label: "ИИН",
+          rules: getRules("length", 12),
+          children: <MaskInput name={"IIN"} mask={"000000-0-0000-0"} onChange={e => changeInput("IIN", e.unmaskedValue)}/>
+        },
+        {
+          name: "Phone",
+          label: "Телефон",
+          rules: getRules("phone", 10),
+          children: <PhoneInput name={"Phone"} onChange={e => changeInput("Phone", e.unmaskedValue)}/>
+        },
+        {
+          name: "city",
+          label: "Город",
+          children: <Select
+            onChange={value => changeInput("city", value)}
+            data={cityMass}
+          />
+        },
+      ]
+    }
+
+    const formPassportData = {
+      ref: this.passportDataForm,
+      items: [
+        {
+          name: "documentType",
+          label: "Вид документа удостоверящего личность",
+          rules: getRules("required"),
+          children: <Select
+            onChange={value => changeInput("documentType", value)}
+            data={documentType}
+          />
+        },
+        {
+          name: "documentNumber",
+          label: "Номер документа удостоверящего личность",
+          rules: getRules("length", 10),
+          children: <MaskInput name={"IIN"} mask={"0000-000000"} onChange={e => changeInput("documentNumber", e.unmaskedValue)}/>
+        },
+        {
+          name: "documentDate",
+          label: "Дата документа удостоверящего личность",
+          rules: getRules("required"),
+          children: <DateSelect format="DD-MM-YYYY" name="documentDate" onChange={changeInput}/>
+        },
+      ]
+    }
+
+    const formIncomeInformation = {
+      ref: this.personalDataForm,
+      items: [
+        {
+          name: "notSoleTrader",
+          rules: getRules("required"),
+          children: <Checkbox
+            name="notSoleTrader"
+            required
+            title='Я не являюсь работником ИП'
+            onChange={changeInput}/>
+        },
+        {
+          name: "haveProfit",
+          rules: getRules("required"),
+          children: <Checkbox
+            name="haveProfit"
+            required
+            title='У меня есть официальный доход'
+            onChange={changeInput}/>
+        },
+        {
+          name: "paymentAmount",
+          label: "Размер заработной платы с учетом налогов",
+          rules: getRules("required"),
+          children: <TextInput
+            name={"paymentAmount"}
+            onChange={e => changeInput(e.target.name, e.target.value, /[\D]+/g)}
+            prefix={"₸"}
+          />
+        },
+        {
+          name: "howFindAbout",
+          label: "Откуда вы узнали о Банке ВТБ (Казахстан)",
+          rules: getRules("required"),
+          children: <Select
+            onChange={value => changeInput("howFindAbout", value)}
+            data={dataSource}
+          />
+        },
+        {
+          name: "iAgree",
+          rules: getRules("required"),
+          children: <Checkbox
+            name="iAgree"
+            required
+            title='Я согласен на обработку персональных данных'
+            onChange={changeInput}/>
+        },
+      ]
+    }
 
     const personalData = () => {
       return (
         <Form
+          ref={this.personalDataForm}
+          size="large"
           layout="vertical"
           className={classes.form}
         >
-          <Form.Item label="Фамилия" required >
-            <Input />
-          </Form.Item>
-          <Form.Item label="Имя" required >
-            <Input />
-          </Form.Item>
-          <Form.Item label="Отчество" required >
-            <Input />
-          </Form.Item>
-          <Form.Item label="ИНН" required >
-            <Input placeholder={"0000000000"} />
-          </Form.Item>
-          <Form.Item label="Телефон" required >
-            <Input placeholder={"+7(___)___-__-__"} />
-          </Form.Item>
-          <Form.Item label="Город" >
-            <Select
-              placeholder="Select a option and change input text above"
-              allowClear
-            >
-              {cityMass.map((el,ind)=>{
-                return <Option key={ind} value={el}>{el}</Option>
-              })}
-            </Select>
-          </Form.Item>
+          {formPersonalData.items.map((el, ind) => {
+            return (
+              <Form.Item
+                key={ind}
+                fieldKey={ind}
+                {...el}
+              >
+                {el.children}
+              </Form.Item>
+            )
+          })}
         </Form>
       )
     }
@@ -75,25 +328,22 @@ class Cash extends Component {
     const passportData = () => {
       return (
         <Form
+          ref={this.passportDataForm}
+          size="large"
           layout="vertical"
           className={classes.form}
         >
-          <Form.Item label="Вид документа удостоверящего личность" required >
-            <Select
-              placeholder="Выберите"
-              allowClear
-            >
-              {documentType.map((el,ind)=>{
-                return <Option key={ind} value={el}>{el}</Option>
-              })}
-            </Select>
-          </Form.Item>
-          <Form.Item label="Номер документа удостоверящего личность" required >
-            <Input placeholder={"0000 000000"} />
-          </Form.Item>
-          <Form.Item label="Дата документа удостоверящего личность" required >
-            <DatePicker style={{width: "100%"}} />
-          </Form.Item>
+          {formPassportData.items.map((el, ind) => {
+            return (
+              <Form.Item
+                key={ind}
+                fieldKey={ind}
+                {...el}
+              >
+                {el.children}
+              </Form.Item>
+            )
+          })}
         </Form>
       )
     }
@@ -101,31 +351,25 @@ class Cash extends Component {
     const incomeInformation = () => {
       return (
         <Form
+          ref={this.incomeInformationForm}
+          size="large"
           layout="vertical"
           className={classes.form}
+
         >
-          <Form.Item required >
-            <Checkbox>Я не являюсь работником ИП <span style={{color: "#ff4d4f"}}>*</span></Checkbox>
-          </Form.Item>
-          <Form.Item required >
-            <Checkbox>У меня есть официальный доход <span style={{color: "#ff4d4f"}}>*</span></Checkbox>
-          </Form.Item>
-          <Form.Item label={"Размер заработной платы с учетом налогов"} required >
-            <Input prefix={"₸"} placeholder="50 000" />
-          </Form.Item>
-          <Form.Item label={"Размер заработной платы с учетом налогов"} >
-            <Select
-              placeholder="Выберите"
-              allowClear
-            >
-              {dataSource.map((el,ind)=>{
-                return <Option key={ind} value={el}>{el}</Option>
-              })}
-            </Select>
-          </Form.Item>
-          <Form.Item required >
-            <Checkbox>Я согласен на обработку персональных данных<span style={{color: "#ff4d4f"}}>*</span></Checkbox>
-          </Form.Item>
+          {
+            formIncomeInformation.items.map((el, ind) => {
+              return (
+                <Form.Item
+                  key={ind}
+                  fieldKey={ind}
+                  {...el}
+                >
+                  {el.children}
+                </Form.Item>
+              )
+            })
+          }
         </Form>
       )
     }
@@ -151,75 +395,69 @@ class Cash extends Component {
 
     const {step} = this.state
 
-    console.log("Step => ", this.state)
-
     return (
-
-      <div className={classes.wrapper}>
-        <h2 style={{marginBottom: 20}}>Кредит наличными</h2>
-        <Card
-          style={{borderRadius: 11}}
-          bodyStyle={{padding: "24px 16px 32px 16px"}}
-        >
-          <h3>Заявка на получение кредита наличными без залога</h3>
-          <p>Уважаемый клиент! Вы можете заполнить предварительную заявку на получение кредита не посещая офис Банка.</p>
-          <p>Наши специалисты свяжутся с Вами и предоставят подробную консультацию, определят оптимальные условия кредитования для Вашего бюджета.</p>
-
-          <Tabs
-            //defaultActiveKey="1"
-            activeKey={step}
-            animated
-            className={classes.tabs}
-            items={tabsItem}
-            onChange={onStepChange}/>
-
-          <Row gutter={16}>
-            {
-              step > 1 ?
-                <Col span={12}>
-                  <Button type="primary" block onClick={()=> onStepChange(step - 1, tabsItem.length)}>
-                    Предыдущий шаг
-                  </Button>
-                </Col> : null
-            }
-
-            <Col span={step > 1 ? 12 : 24}>
-              <Button type="primary" block onClick={()=> onStepChange(step + 1, tabsItem.length)}>
-                {step ===  tabsItem.length ? "Отправить" : "Следующий шаг"}
-              </Button>
-            </Col>
-          </Row>
-
-          {/*<Space
-            direction={step > 1 ? "horizontal" : "vertical"}
-            style={{
-              width: '100%',
-            }}
+      <>
+        <div className={`${classes.wrapper} ${this.state.loading ? classes.loading : ""}`} >
+          <h2 style={{marginBottom: 20}}>Кредит наличными</h2>
+          <Card
+            style={{borderRadius: 11}}
+            bodyStyle={{padding: "24px 16px 32px 16px"}}
           >
-            {
-              step > 1 ?
-                <Button type="primary" block onClick={()=> onStepChange(step - 1, tabsItem.length)}>
-                  Предыдущий шаг
-                </Button> : null
-            }
+            <h3>Заявка на получение кредита наличными без залога</h3>
+            <p>Уважаемый клиент! Вы можете заполнить предварительную заявку на получение кредита не посещая офис Банка.</p>
+            <p>Наши специалисты свяжутся с Вами и предоставят подробную консультацию, определят оптимальные условия кредитования для Вашего бюджета.</p>
 
-            <Button type="primary" block onClick={()=> onStepChange(step + 1, tabsItem.length)}>
-              {step ===  tabsItem.length ? "Отправить" : "Следующий шаг"}
-            </Button>
-          </Space>*/}
+            <Tabs
+              //defaultActiveKey="1"
+              activeKey={step}
+              animated
+              className={classes.tabs}
+              items={tabsItem}
+              onChange={id => onStepChangeTab(id, step, tabsItem.length)}/>
 
-        </Card>
-      </div>
+            <Row gutter={16} style={{marginTop:20}}>
+              {
+                step > 1 ?
+                  <Col span={12}>
+                    <PrimaryButton
+                      size="small"
+                      onClick={()=> onStepChange(step - 1, tabsItem.length)}
+                      title={"Предыдущий шаг"}
+                    />
+                  </Col> : null
+              }
+
+              <Col span={step > 1 ? 12 : 24}>
+                <PrimaryButton
+                  size="small"
+                  onClick={()=> onStepChange(step + 1, tabsItem.length, this.getFormRef(step))}
+                  title={step ===  tabsItem.length ? "Отправить" : "Следующий шаг"}
+                />
+              </Col>
+            </Row>
+          </Card>
+
+        </div>
+        {
+          this.state.loading && <Loader/>
+        }
+      </>
+
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    form: state.gettingLoan
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    changeInput: (name, value, filter) => dispatch(changeInput({name, value, filter})),
+    clearForm: ()=> dispatch(clearForm())
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cash);

@@ -1,1 +1,3 @@
 export const AUTHORIZATION = "AUTHORIZATION"
+export const FIELDCHANGE = "FIELDCHANGE"
+export const CLEARFORM = "CLEARFORM"

@@ -4,12 +4,33 @@ import classes from './index.module.scss';
 import PrimaryButton from '../../../ui/buttons/PrimaryButton';
 import credit from '../../../../images/credit-icon.svg';
 import remittance from '../../../../images/remittance-ru-icon.svg'
+import protectIcon from '../../../../images/slider-icon/protect_icon.svg'
 import ServiceButton from '../../../ui/buttons/ServiceButton';
-import {Col, Row} from 'antd';
+import {Col, Row, Modal} from 'antd';
 import Slider from "../../../Slider";
+import SliderModal from "../../../ui/modal/SliderModal";
 
 class Services extends Component {
+
+  state = {
+    showModal : false
+  }
+
   render() {
+
+
+    const openModal = () => {
+      this.setState({
+        showModal: true
+      });
+    }
+
+    const closeModal = () => {
+      this.setState({
+        showModal: false
+      });
+    }
+
     const service = [
       {
         title: "Взять<br/> кредит",
@@ -25,7 +46,11 @@ class Services extends Component {
 
     const history = [
       {
-        title: "История 1"
+        color: "#ffffff",
+        bgColor: "#3272F1",
+        title: "Осторожно мошенники",
+        icon: protectIcon,
+        action: openModal,
       },
       {
         title: "История 2"
@@ -67,6 +92,8 @@ class Services extends Component {
           </Row>
           <PrimaryButton title="Войти в личный кабинет" link="signIn" />
         </div>
+        <SliderModal open={this.state.showModal} onCancel={closeModal} />
+
       </>
     );
   }
