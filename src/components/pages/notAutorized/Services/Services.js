@@ -6,7 +6,6 @@ import credit from '../../../../images/credit-icon.svg';
 import remittance from '../../../../images/remittance-ru-icon.svg'
 import protectIcon from '../../../../images/slider-icon/protect_icon.svg'
 
-import protect from '../../../../images/index-bg.png'
 import ServiceButton from '../../../ui/buttons/ServiceButton';
 import {Col, Row, Modal} from 'antd';
 import Slider from "../../../Slider";
@@ -79,7 +78,6 @@ class Services extends Component {
 
     return (
       <>
-        <img src={protect}/>
         <Slider data={history}/>
         <div className={classes.wrapper}>
           <Row gutter={[16, 16]} style={{marginBottom: 16}}>
