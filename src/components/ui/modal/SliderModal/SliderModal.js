@@ -29,13 +29,13 @@ const SliderModal = (props) => {
       footer={null}
       closeIcon={<CloseIcon/>}
     >
-      <AliceCarousel mouseTracking {...settings}>
+      <AliceCarousel renderKey={props.open ? 1: 2} mouseTracking {...settings}>
         <div className={classes.slideItem}>
           <img alt="Защитник" src={SliderImage} style={{width:"90%", maxWidth: "314px", margin: "100px auto 0 auto"}} />
           <h1 style={{textAlign: "left", margin: "auto"}}>Обезопасьте себя<br/>
             от мошенников!</h1>
         </div>
-        <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9;"}}>
+        <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
           <h1 style={{textAlign: "left", margin: "80px auto 32px auto"}}>
             Мошенник может представиться сотрудником банка
           </h1>
@@ -61,7 +61,7 @@ const SliderModal = (props) => {
             </ul>
           </div>
         </div>
-        <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9;"}}>
+        <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
           <div style={{margin: "auto 0"}}>
             <h1 style={{textAlign: "left", margin: "0px auto 32px auto"}}>
               Топ-3 фраз мошенников

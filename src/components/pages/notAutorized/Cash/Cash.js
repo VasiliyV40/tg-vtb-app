@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Navigate, Redirect} from "react-router-dom";
 import classes from './cash.module.scss';
 import {
   Card,
@@ -30,7 +31,8 @@ class Cash extends Component {
 
   state = {
     step: 1,
-    loading: false
+    loading: false,
+    formValid: []
   }
 
   getFormRef = (val) => {
@@ -59,6 +61,7 @@ class Cash extends Component {
     };
 
     const onStepChange = (value, maxStep, formRef) => {
+      console.log("Step change => ", value, formRef)
       if (value === 0){
         return false;
       } else if(!formRef ){
@@ -72,12 +75,14 @@ class Cash extends Component {
               loading: true
             });
             setTimeout(()=>{
-              this.props.clearForm()
+              this.props.clearForm();
               this.setState({
                 step: 1,
-                loading:false
+                loading:false,
+                formValid: [],
               });
               openNotification('bottom')
+
             }, 3000)
           })
           .catch(error => {});
@@ -85,10 +90,15 @@ class Cash extends Component {
         formRef.current.validateFields()
           .then(data =>{
             this.setState({
-              step: value
+              step: value,
+              formValid: this.state.formValid.includes(value - 1) ? [...this.state.formValid] : [...this.state.formValid, value - 1]
             });
           })
-          .catch(error => {});
+          .catch(error => {
+            this.setState({
+              formValid: this.state.formValid.filter(el => el !== value - 1)
+            });
+          });
       }
     }
 
@@ -97,19 +107,47 @@ class Cash extends Component {
         this.setState({
           step
         });
-      } else if (step > currentStep) {
-        console.log("======== => ", currentStep + 1, this.getFormRef(currentStep + 1))
+      } else if (step === currentStep +1) {
+        console.log("======== => ", step, currentStep)
         this.getFormRef(currentStep).current.validateFields()
           .then(data => {
-
+            console.log("Data", this.state.step);
             this.setState({
-              step: currentStep + 1
+              step: currentStep + 1,
+              formValid: this.state.formValid.includes(currentStep) ? [...this.state.formValid] : [...this.state.formValid, currentStep]
             });
-            console.log("Data", this.state.step)
-          })
-          .catch(error => {})
 
-        //console.log("!!!!!! => ", aaa)
+          })
+          .catch(error => {
+            this.setState({
+              formValid: this.state.formValid.filter(el => el !== currentStep)
+            });
+          })
+      } else if (step > currentStep +1) {
+        console.log("DFDFDFDF =>", step, currentStep)
+
+        this.getFormRef(currentStep).current.validateFields()
+          .then(data => {
+            console.log("Data", this.state.step);
+            if(this.state.formValid.includes(currentStep) && this.state.formValid.includes(step - 1)) {
+              this.setState({
+                step: step
+              });
+            } else {
+              this.setState({
+                step: currentStep + 1,
+                formValid: this.state.formValid.includes(currentStep) ? [...this.state.formValid] : [...this.state.formValid, currentStep]
+              });
+            }
+
+          })
+          .catch(error => {
+            console.log("ERROR")
+            /*this.setState({
+              formValid: this.state.formValid.filter(el => el !== currentStep)
+            });*/
+          })
+
 
 
       } else return false
@@ -393,7 +431,9 @@ class Cash extends Component {
       }
     ]
 
-    const {step} = this.state
+    const {step} = this.state;
+
+    console.log("FORM =>", this.props.form)
 
     return (
       <>
