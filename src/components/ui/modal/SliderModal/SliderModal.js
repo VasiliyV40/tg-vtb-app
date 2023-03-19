@@ -6,6 +6,22 @@ import close from '../../../../images/close_white_icon.svg'
 import AliceCarousel from "react-alice-carousel";
 
 class SliderModal extends Component{
+
+
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevState.show !== this.props.open){
+      this.setState({
+        show: !prevState.show
+      })
+    }
+
+  }
+
+  state = {
+    show: false
+  }
+
   render() {
     const settings = {
       responsive: {
@@ -31,7 +47,7 @@ class SliderModal extends Component{
         closeIcon={<CloseIcon/>}
       >
         {
-          <AliceCarousel mouseTracking {...settings}>
+          this.state.show && <AliceCarousel mouseTracking {...settings}>
             <div className={classes.slideItem}>
               <img alt="Защитник" src={SliderImage} style={{width:"90%", maxWidth: "314px", margin: "100px auto 0 auto"}} />
               <h1 style={{textAlign: "left", margin: "auto"}}>Обезопасьте себя<br/>
