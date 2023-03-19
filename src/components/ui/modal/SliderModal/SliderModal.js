@@ -30,7 +30,7 @@ const SliderModal = (props) => {
       closeIcon={<CloseIcon/>}
     >
       {
-        this.props.open ?
+        props.open ?
           <AliceCarousel mouseTracking {...settings}>
             <div className={classes.slideItem}>
               <img alt="Защитник" src={SliderImage} style={{width:"90%", maxWidth: "314px", margin: "100px auto 0 auto"}} />
