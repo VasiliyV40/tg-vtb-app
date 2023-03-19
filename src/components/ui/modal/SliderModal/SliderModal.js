@@ -29,73 +29,77 @@ const SliderModal = (props) => {
       footer={null}
       closeIcon={<CloseIcon/>}
     >
-      <AliceCarousel renderKey={props.open ? 1: 2} mouseTracking {...settings}>
-        <div className={classes.slideItem}>
-          <img alt="Защитник" src={SliderImage} style={{width:"90%", maxWidth: "314px", margin: "100px auto 0 auto"}} />
-          <h1 style={{textAlign: "left", margin: "auto"}}>Обезопасьте себя<br/>
-            от мошенников!</h1>
-        </div>
-        <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
-          <h1 style={{textAlign: "left", margin: "80px auto 32px auto"}}>
-            Мошенник может представиться сотрудником банка
-          </h1>
-          <div style={{marginBottom: "auto"}}>
-            <p>
-              Сотрудник банка никогда<br/>
-              не запрашивают эти данные<br/>
-              по телефону:
-            </p>
-            <ul>
-              <li>
-                PIN-код
-              </li>
-              <li>
-                CVV-код
-              </li>
-              <li>
-                Код-пароль из СМС
-              </li>
-              <li>
-                Сумму на вашем счете
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
-          <div style={{margin: "auto 0"}}>
-            <h1 style={{textAlign: "left", margin: "0px auto 32px auto"}}>
-              Топ-3 фраз мошенников
-            </h1>
-            <ol className={classes.numeric}>
-              <li>
-                <h4>
-                  В другом городе была совершена сомнительная операция по Вашей карте.
-                </h4>
+      {
+        this.props.open ?
+          <AliceCarousel mouseTracking {...settings}>
+            <div className={classes.slideItem}>
+              <img alt="Защитник" src={SliderImage} style={{width:"90%", maxWidth: "314px", margin: "100px auto 0 auto"}} />
+              <h1 style={{textAlign: "left", margin: "auto"}}>Обезопасьте себя<br/>
+                от мошенников!</h1>
+            </div>
+            <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
+              <h1 style={{textAlign: "left", margin: "80px auto 32px auto"}}>
+                Мошенник может представиться сотрудником банка
+              </h1>
+              <div style={{marginBottom: "auto"}}>
                 <p>
-                  Мошенники вовлекают вас в разговор и под предлогом обезопасить сбережения узнают конфиденциальную информацию по банковской карте.
+                  Сотрудник банка никогда<br/>
+                  не запрашивают эти данные<br/>
+                  по телефону:
                 </p>
-              </li>
-              <li>
-                <h4>
-                  Сообщите примерную сумму на вашем счете.
-                </h4>
-                <p>
-                  Так они хотят узнать не более какой суммы они смогут попытаться похитить с вашей карты.
-                </p>
-              </li>
-              <li>
-                <h4>
-                  На ваше имя оформили кредит, срочно скачайте приложение по ссылке, которую мы вам сейчас отправим.
-                </h4>
-                <p>
-                  Мошенники хотят ввести вас в стрессовую ситуацию, чтобы вы перешли по ссылке и указали конфиденциальную информацию.
-                </p>
-              </li>
-            </ol>
-          </div>
+                <ul>
+                  <li>
+                    PIN-код
+                  </li>
+                  <li>
+                    CVV-код
+                  </li>
+                  <li>
+                    Код-пароль из СМС
+                  </li>
+                  <li>
+                    Сумму на вашем счете
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
+              <div style={{margin: "auto 0"}}>
+                <h1 style={{textAlign: "left", margin: "0px auto 32px auto"}}>
+                  Топ-3 фраз мошенников
+                </h1>
+                <ol className={classes.numeric}>
+                  <li>
+                    <h4>
+                      В другом городе была совершена сомнительная операция по Вашей карте.
+                    </h4>
+                    <p>
+                      Мошенники вовлекают вас в разговор и под предлогом обезопасить сбережения узнают конфиденциальную информацию по банковской карте.
+                    </p>
+                  </li>
+                  <li>
+                    <h4>
+                      Сообщите примерную сумму на вашем счете.
+                    </h4>
+                    <p>
+                      Так они хотят узнать не более какой суммы они смогут попытаться похитить с вашей карты.
+                    </p>
+                  </li>
+                  <li>
+                    <h4>
+                      На ваше имя оформили кредит, срочно скачайте приложение по ссылке, которую мы вам сейчас отправим.
+                    </h4>
+                    <p>
+                      Мошенники хотят ввести вас в стрессовую ситуацию, чтобы вы перешли по ссылке и указали конфиденциальную информацию.
+                    </p>
+                  </li>
+                </ol>
+              </div>
 
-        </div>
-      </AliceCarousel>
+            </div>
+          </AliceCarousel> : null
+      }
+
 
     </Modal>
   );
