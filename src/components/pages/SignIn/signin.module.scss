@@ -1,5 +1,26 @@
 .wrapper {
   padding: 16px;
+  &.loading{
+    filter: blur(4px);
+  }
+
+  .form {
+    :global {
+      .ant-form-item {
+        margin-bottom: 10px;
+      }
+      .ant-form-item-row {
+        margin-top: 24px;
+      }
+      .ant-form-item-label {
+        padding-bottom: 2px;
+
+        label {
+          height: 24px;
+        }
+      }
+    }
+  }
 }
 
 .link {

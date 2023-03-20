@@ -242,7 +242,7 @@ class Cash extends Component {
           name: "IIN",
           label: "ИИН",
           rules: getRules("length", 12),
-          children: <MaskInput name={"IIN"} mask={"000000-0-0000-0"} inputmode="decimal" onChange={e => changeInput("IIN", e.unmaskedValue)}/>
+          children: <MaskInput name={"IIN"} mask={"000000-0-0000-0"} inputMode="decimal" onChange={e => changeInput("IIN", e.unmaskedValue)}/>
         },
         {
           name: "Phone",
