@@ -9,6 +9,74 @@
   .secondBg {
     background: linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9;
   }
+  .slider {
+    height: 100%;
+    :global{
+      .slick-list, .slick-track {
+        height: 100%;
+      }
+      .slick-slide {
+        > div {
+          height: 100%;
+        }
+
+        :local{
+          .slideItem {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            ul, ol {
+              list-style: disc;
+              margin-left: 20px;
+              font-size: 18px;
+              line-height: 32px;
+              &.numeric {
+                list-style: none;
+                counter-reset: my-counter;
+                margin-left: 30px;
+                li {
+                  position: relative;
+                  margin-bottom: 16px;
+                  &:last-child {
+                    margin-bottom: 0;
+                  }
+                  &:before {
+                    content: counter(my-counter);
+                    counter-increment: my-counter;
+                    background-color: #ffffff;
+                    color:#3170DB;
+                    border-radius: 50px;
+                    width: 18px;
+                    height: 18px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 12px;
+                    line-height: 14px;
+                    position: absolute;
+                    left:-30px;
+                    top:1px;
+                  }
+                }
+                h4 {
+                  font-weight: 600;
+                  font-size: 16px;
+                  line-height: 19px;
+                  margin-bottom: 8px;
+                }
+                p {
+                  font-weight: 400;
+                  font-size: 14px;
+                  line-height: 18px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   :global {
     .ant-modal-content {
       background-color: transparent;
@@ -115,6 +183,8 @@
           }
         }
       }
+
+
       .ant-modal-close {
         top: 40px;
         width: 40px;

@@ -19,9 +19,6 @@ class ResetPassword extends Component {
             Восстановить пароль
           </h2>
           <Form
-            initialValues={{
-              prefix: '7',
-            }}
           >
             <Form.Item
               name="phone"
