@@ -9,25 +9,6 @@ import Slider from "react-slick";
 class SliderModal extends Component{
 
 
-  /*test = (val) => {
-    setTimeout(()=> {
-      this.setState({
-        show: val
-      })
-    }, 500)
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if(prevState.show !== this.props.open){
-      this.test(!prevState.show);
-    }
-
-  }
-
-  state = {
-    show: false
-  }*/
-
   render() {
 
     const settings = {
@@ -59,7 +40,7 @@ class SliderModal extends Component{
               от мошенников!</h1>
           </div>
           <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
-            <h1 style={{textAlign: "left", margin: "80px auto 32px auto"}}>
+            <h1 style={{textAlign: "left", margin: "55px auto 32px auto"}}>
               Мошенник может представиться сотрудником банка
             </h1>
             <div style={{marginBottom: "auto"}}>
@@ -86,7 +67,7 @@ class SliderModal extends Component{
           </div>
           <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
             <div style={{margin: "auto 0"}}>
-              <h1 style={{textAlign: "left", margin: "40px auto 32px auto"}}>
+              <h1 style={{textAlign: "left", margin: "20px auto 32px auto"}}>
                 Топ-3 фраз мошенников
               </h1>
               <ol className={classes.numeric}>
