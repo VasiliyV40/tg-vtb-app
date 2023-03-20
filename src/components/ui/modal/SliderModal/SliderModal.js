@@ -42,6 +42,7 @@ class SliderModal extends Component{
 
     const settings = {
       dots: true,
+      arrows:false,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
@@ -95,7 +96,7 @@ class SliderModal extends Component{
           </div>
           <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
             <div style={{margin: "auto 0"}}>
-              <h1 style={{textAlign: "left", margin: "0px auto 32px auto"}}>
+              <h1 style={{textAlign: "left", margin: "40px auto 32px auto"}}>
                 Топ-3 фраз мошенников
               </h1>
               <ol className={classes.numeric}>

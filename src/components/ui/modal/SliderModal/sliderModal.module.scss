@@ -15,6 +15,24 @@
       .slick-list, .slick-track {
         height: 100%;
       }
+      .slick-dots{
+        width: 100%;
+        bottom: initial;
+        position: absolute;
+        top: 14px;
+        li {
+          width: calc(30% - 20px);
+          border-radius: 20px;
+          height: 3px;
+          background: rgba(255, 255, 255, 0.17);
+          button {
+            display: none;
+          }
+          &.slick-active {
+            background: #ffffff;
+          }
+        }
+      }
       .slick-slide {
         > div {
           height: 100%;
@@ -23,8 +41,9 @@
         :local{
           .slideItem {
             height: 100%;
-            display: flex;
+            display: flex!important;
             flex-direction: column;
+            padding: 32px;
             ul, ol {
               list-style: disc;
               margin-left: 20px;
