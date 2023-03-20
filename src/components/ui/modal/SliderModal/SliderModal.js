@@ -40,33 +40,36 @@ class SliderModal extends Component{
               от мошенников!</h1>
           </div>
           <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
-            <h1 style={{textAlign: "left", margin: "55px auto 32px auto"}}>
-              Мошенник может представиться сотрудником банка
-            </h1>
-            <div style={{marginBottom: "auto"}}>
-              <p>
-                Сотрудник банка никогда<br/>
-                не запрашивают эти данные<br/>
-                по телефону:
-              </p>
-              <ul>
-                <li>
-                  PIN-код
-                </li>
-                <li>
-                  CVV-код
-                </li>
-                <li>
-                  Код-пароль из СМС
-                </li>
-                <li>
-                  Сумму на вашем счете
-                </li>
-              </ul>
+            <div style={{margin: "40px 0 auto 0"}}>
+              <h1 style={{textAlign: "left", margin: "20px auto 32px auto"}}>
+                Мошенник может представиться сотрудником банка
+              </h1>
+              <div style={{marginBottom: "auto"}}>
+                <p>
+                  Сотрудник банка никогда<br/>
+                  не запрашивают эти данные<br/>
+                  по телефону:
+                </p>
+                <ul>
+                  <li>
+                    PIN-код
+                  </li>
+                  <li>
+                    CVV-код
+                  </li>
+                  <li>
+                    Код-пароль из СМС
+                  </li>
+                  <li>
+                    Сумму на вашем счете
+                  </li>
+                </ul>
+              </div>
             </div>
+
           </div>
           <div className={`${classes.slideItem} ${classes.secondBg}`} style={{padding: 40, background: "linear-gradient(180deg, #367BE0 0%, #1B45C7 100%), #D9D9D9"}}>
-            <div style={{margin: "auto 0"}}>
+            <div style={{margin: "40px 0 auto 0"}}>
               <h1 style={{textAlign: "left", margin: "20px auto 32px auto"}}>
                 Топ-3 фраз мошенников
               </h1>
