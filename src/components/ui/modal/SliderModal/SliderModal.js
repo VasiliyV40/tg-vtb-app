@@ -13,7 +13,7 @@ class SliderModal extends Component{
       this.setState({
         show: val
       })
-    }, 1000)
+    }, 100)
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
