@@ -224,25 +224,25 @@ class Cash extends Component {
           name: "secondName",
           label: "Фамилия",
           rules: getRules("minLength"),
-          children: <TextInput name={"secondName"} onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+          children: <TextInput name={"secondName"} type="text" onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
         },
         {
           name: "name",
           label: "Имя",
           rules: getRules("minLength"),
-          children: <TextInput name={"name"} onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+          children: <TextInput name={"name"} type="text" onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
         },
         {
           name: "thirdName",
           label: "Отчество",
           rules: getRules("minLength"),
-          children: <TextInput name={"thirdName"} onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+          children: <TextInput name={"thirdName"} type="text" onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
         },
         {
           name: "IIN",
           label: "ИИН",
           rules: getRules("length", 12),
-          children: <MaskInput name={"IIN"} mask={"000000-0-0000-0"} onChange={e => changeInput("IIN", e.unmaskedValue)}/>
+          children: <MaskInput name={"IIN"} mask={"000000-0-0000-0"} inputmode="decimal" onChange={e => changeInput("IIN", e.unmaskedValue)}/>
         },
         {
           name: "Phone",

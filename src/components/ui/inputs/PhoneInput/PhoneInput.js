@@ -32,6 +32,7 @@ const PhoneInput = (props) => {
       size={"large"}
       mask={'(000) 000-00-00'}
       onChange={onChange}
+      inputMode="tel"
     />
   );
 };
