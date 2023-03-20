@@ -117,7 +117,7 @@ class SignIn extends Component {
                     message: 'Обязательное поле',
                   },
                   {
-                    len: 6,
+                    min: 6,
                     message: `Должно содержать от 6 символов`,
                   }
                 ]}
