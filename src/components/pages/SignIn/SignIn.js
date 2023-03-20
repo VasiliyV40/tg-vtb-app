@@ -1,129 +1,167 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {AutoComplete, Card, Form, Select, Input, Button, Space} from 'antd';
+import {AutoComplete, Card, Form, Select, Input, Button, Space, Col, Row} from 'antd';
 import classes from "./signin.module.scss";
-import PhoneInput from "../../ui/inputs/PhoneInput";
+
 import PasswordInput from "../../ui/inputs/PasswordInput";
 import PrimaryButton from "../../ui/buttons/PrimaryButton";
 import {Link} from "react-router-dom";
-import signIn from "../../../store/actions/authorization";
+import {signIn, changeInput} from "../../../store/actions/authorization";
+import PhoneInput from "../../ui/inputs/PhoneInput";
+import Loader from "../../Loader/Loader";
 
 
 
 class SignIn extends Component {
 
   state = {
-    phone: {
-      value: "",
-      error: null
-    },
-    password: {
-      value: "",
-      error: null
-    },
-    isValid: false
+    loading: false
+  }
+
+  loginForm = React.createRef();
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+
+    this.loginForm.current.setFieldsValue({...this.props.form})
+
   }
 
   render() {
 
-    const validateInput = (name, val) => {
-      if (name === "phone" && val.length !== 10) {
-        return {message: "Поле должно содержать 10 символов"}
-      } else if (name === "password" && val.length < 6){
-        return {message: "Поле должно быть больше 6-ти символов"}
-      } else return null
-    }
-
-    const validateForm = () => {
-      const prevState = this.state;
-      this.setState({
-        phone: {
-          value: prevState.phone.value,
-          error: validateInput("phone", prevState.phone.value)
-        },
-        password: {
-          value: prevState.password.value,
-          error: validateInput("password", prevState.password.value)
-        },
-        isValid: true
-      });
-
-      if (this.state.phone.error === null && this.state.password.error === null && this.state.isValid !== false) {
-        console.log("TRUE =>", )
-        return true
-      } else {
-        console.log("FALSE =>", )
-        return false
-      }
-    }
-
-    const fieldChange = (field, value) => {
-      this.setState({
-        [field]: {value, error: validateInput(field, value)}
-      });
-    }
-
     const loginHandler =  () => {
-      if(validateForm()){
-        console.log("!!!!!! =>", )
-        this.props.signIn(this.state.phone, this.state.password, false)
-      }
+
+      this.loginForm.current.validateFields()
+        .then(data => {
+          console.log("Valid")
+          this.setState({
+            loading: true
+          });
+          setTimeout(()=>{
+            this.props.signIn(this.props.form.login, this.props.form.password, false)
+          }, 1500)
+
+        })
+        .catch(error => {
+          console.log("Error", error)
+        })
     };
 
+    console.log("66666666666666 ", this.props)
+    const {changeInput} = this.props
+
+    const getRules = (id, val) => {
+      switch (id) {
+        case "minLength":
+          return [
+            {
+              required: true,
+              message: 'Обязательное поле',
+            },
+            {
+              type: 'string',
+              min: val,
+              message: `Должно содержать от ${val} символов`,
+            }
+          ];
+        case "phone":
+          return [
+            {
+              required: true,
+              message: 'Обязательное поле',
+            },
+            {
+              len: val,
+              message: `Должно содержать ${val} цифр`,
+            }
+          ];
+      }
+    }
+
+
+
     return (
-      <div  className={classes.wrapper}>
-        <Card
-          style={{borderRadius: 11}}
-          bodyStyle={{padding: "24px 16px 32px 16px", }}
-        >
-          <h2 style={{marginBottom: 40}}>
-            Войти<br/>
-            в&nbsp;личный кабинет
-          </h2>
-          <Form
-            initialValues={{
-              prefix: '7',
-            }}
+      <>
+        <div  className={`${classes.wrapper} ${this.state.loading ? classes.loading : ""}`}>
+          <Card
+            style={{borderRadius: 11}}
+            bodyStyle={{padding: "24px 16px 32px 16px", }}
           >
-            <Form.Item
-              name="phone"
-              validateStatus={this.state.isValid && this.state.phone?.error ? "error" : ""}
-              help={this.state.isValid && this.state.phone.error?.message}
+            <h2 style={{marginBottom: 40}}>
+              Войти<br/>
+              в&nbsp;личный кабинет
+            </h2>
+            <Form
+              ref={this.loginForm}
+              className={classes.form}
             >
-              <PhoneInput name="phone" data={this.state.phone.value} onChange={fieldChange}/>
-            </Form.Item>
-            <Form.Item
-              name="password"
-              validateStatus={this.state.isValid && this.state.password?.error ? "error" : ""}
-              help={this.state.isValid && this.state.password.error?.message}
-            >
-              <PasswordInput name="password" data={this.state.password.value} onChange={fieldChange}/>
-            </Form.Item>
-            <PrimaryButton title="Войти" onClick={loginHandler}/>
-            <Space
-              align="center"
-              direction="vertical"
-              style={{
-                width: '100%',
-              }}
-            >
-              <Link to={`/resetPassword`} className={classes.link}>Забыли пароль?</Link>
-            </Space>
-          </Form>
-        </Card>
-      </div>
+              <Form.Item
+                name="login"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Обязательное поле',
+                  },
+                  {
+                    len: 10,
+                    message: `Должно содержать 10 цифр`,
+                  }
+                ]}
+              >
+                <PhoneInput name={"login"} onChange={e => changeInput("login", e.unmaskedValue)}/>
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Обязательное поле',
+                  },
+                  {
+                    len: 6,
+                    message: `Должно содержать от 6 символов`,
+                  }
+                ]}
+              >
+
+               <PasswordInput name="password" onChange={e => changeInput("password", e.target.value)}/>
+              </Form.Item>
+              <Row gutter={16} style={{marginTop:20}}>
+                <Col span={24}>
+                  <PrimaryButton title="Войти" onClick={loginHandler}/>
+                  <Space
+                    align="center"
+                    direction="vertical"
+                    style={{
+                      width: '100%',
+                    }}
+                  >
+                    <Link to={`/resetPassword`} className={classes.link}>Забыли пароль?</Link>
+                  </Space>
+                </Col>
+              </Row>
+
+            </Form>
+          </Card>
+        </div>
+        {this.state.loading && <Loader/>}
+      </>
+
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    form: state.authorization.form,
+    validate : state.authorization.validate
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    signIn: (tel, pass, isLogin) => dispatch(signIn(tel, pass, isLogin))
+    changeInput: (name, value, filter) => dispatch(changeInput({name, value, filter})),
+    signIn: () => dispatch(signIn())
   };
 }
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

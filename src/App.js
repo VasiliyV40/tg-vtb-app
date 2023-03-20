@@ -19,6 +19,9 @@ import Payment from "./components/pages/Payment/Payment";
 import IssueCard from "./components/pages/IssueCard/IssueCard";
 import Accounts from "./components/pages/Accounts/Accounts";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const {tg, onToggleButton} = useTelegram();
 
 class App extends Component {

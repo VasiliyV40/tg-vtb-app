@@ -1,6 +1,13 @@
-import {AUTHORIZATION} from "./actionTypes";
+import {AUTHORIZATION, FIELDCHANGE} from "./actionTypes";
 
-export default function signIn(tel, pass, isLogin){
+export function changeInput(data){
+  return {
+    type: FIELDCHANGE,
+    payload: data
+  }
+}
+
+export function signIn(){
   return {
     type: AUTHORIZATION,
   }

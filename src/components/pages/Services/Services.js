@@ -9,7 +9,7 @@ import account from "../../../images/account_icon.svg";
 import issueCard from "../../../images/issue_card_icon.svg";
 import payment from "../../../images/payment_icon.svg";
 import transfer from "../../../images/transfer_icon.svg";
-import signIn from "../../../store/actions/authorization";
+import {signIn} from "../../../store/actions/authorization";
 
 
 
