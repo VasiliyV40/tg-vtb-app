@@ -8,12 +8,17 @@ import AliceCarousel from "react-alice-carousel";
 class SliderModal extends Component{
 
 
+  test = (val) => {
+    setTimeout(()=> {
+      this.setState({
+        show: val
+      })
+    }, 1000)
+  }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if(prevState.show !== this.props.open){
-      this.setState({
-        show: !prevState.show
-      })
+      this.test(!prevState.show);
     }
 
   }
