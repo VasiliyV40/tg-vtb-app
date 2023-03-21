@@ -26,8 +26,6 @@ import Loader from "../../../Loader/Loader";
 class Cash extends Component {
 
   personalDataForm = React.createRef();
-  passportDataForm = React.createRef();
-  incomeInformationForm = React.createRef();
 
   state = {
     step: 1,
@@ -35,24 +33,15 @@ class Cash extends Component {
     formValid: []
   }
 
-  getFormRef = (val) => {
-    switch (val) {
-      case 1: return this.personalDataForm;
-      case 2: return this.passportDataForm;
-      case 3: return this.incomeInformationForm;
-      default: return false;
-    }
-  }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.state.step === prevState.step){
-      this.getFormRef(this.state.step).current.setFieldsValue({...this.props.form})
+      this.personalDataForm.current.setFieldsValue({...this.props.form})
     }
   }
 
 
   render() {
-
+    const form = this.personalDataForm.current
     const openNotification = (placement) => {
       notification.success({
         message: "Заявка успешно отправлена",
@@ -60,16 +49,48 @@ class Cash extends Component {
       });
     };
 
-    const onStepChange = (value, maxStep, formRef) => {
-      console.log("Step change => ", value, formRef)
-      if (value === 0){
-        return false;
-      } else if(!formRef ){
+    const getList = (id) => {
+      switch (id) {
+        case 1:return formPersonalData.items.map(el => el.name);
+        case 2:return formPassportData.items.map(el => el.name);
+        case 3:return formIncomeInformation.items.map(el => el.name);
+      }
+    }
+
+
+
+    const onStepChange = (currentStep, nextStep, maxStep) => {
+      if(nextStep === currentStep + 1 && nextStep - 1 !== maxStep) {
+        form.validateFields(getList(currentStep))
+          .then((data)=>{
+            this.setState({
+              step: nextStep,
+              formValid: this.state.formValid.includes(currentStep) ? [...this.state.formValid] : [...this.state.formValid, currentStep]
+            })
+          }).catch(error => {
+            this.setState({
+              formValid: this.state.formValid.filter(el => el !== currentStep)
+            });
+          });
+      } else if (nextStep > currentStep + 1 && nextStep - 1 !== maxStep) {
+        form.validateFields(getList(currentStep))
+          .then(data => {
+            if (this.state.formValid.includes(2)){
+              this.setState({
+                step: nextStep
+              })
+            } else {
+              this.setState({
+                step: currentStep + 1
+              })
+            }
+          });
+      } else if (nextStep < currentStep) {
         this.setState({
-          step: value
-        });
-      } else if (value - 1 === maxStep){
-        formRef.current.validateFields()
+          step: nextStep
+        })
+      } else if (currentStep === maxStep) {
+        form.validateFields()
           .then(data =>{
             this.setState({
               loading: true
@@ -81,76 +102,11 @@ class Cash extends Component {
                 loading:false,
                 formValid: [],
               });
-              openNotification('bottom')
-
+              form.resetFields();
+              openNotification('bottom');
             }, 3000)
           })
-          .catch(error => {});
-      } else {
-        formRef.current.validateFields()
-          .then(data =>{
-            this.setState({
-              step: value,
-              formValid: this.state.formValid.includes(value - 1) ? [...this.state.formValid] : [...this.state.formValid, value - 1]
-            });
-          })
-          .catch(error => {
-            this.setState({
-              formValid: this.state.formValid.filter(el => el !== value - 1)
-            });
-          });
       }
-    }
-
-    const onStepChangeTab = (step, currentStep, stepCount) => {
-      if (step < currentStep){
-        this.setState({
-          step
-        });
-      } else if (step === currentStep +1) {
-        console.log("======== => ", step, currentStep)
-        this.getFormRef(currentStep).current.validateFields()
-          .then(data => {
-            console.log("Data", this.state.step);
-            this.setState({
-              step: currentStep + 1,
-              formValid: this.state.formValid.includes(currentStep) ? [...this.state.formValid] : [...this.state.formValid, currentStep]
-            });
-
-          })
-          .catch(error => {
-            this.setState({
-              formValid: this.state.formValid.filter(el => el !== currentStep)
-            });
-          })
-      } else if (step > currentStep +1) {
-        console.log("DFDFDFDF =>", step, currentStep)
-
-        this.getFormRef(currentStep).current.validateFields()
-          .then(data => {
-            console.log("Data", this.state.step);
-            if(this.state.formValid.includes(currentStep) && this.state.formValid.includes(step - 1)) {
-              this.setState({
-                step: step
-              });
-            } else {
-              this.setState({
-                step: currentStep + 1,
-                formValid: this.state.formValid.includes(currentStep) ? [...this.state.formValid] : [...this.state.formValid, currentStep]
-              });
-            }
-
-          })
-          .catch(error => {
-            console.log("ERROR")
-            /*this.setState({
-              formValid: this.state.formValid.filter(el => el !== currentStep)
-            });*/
-          })
-
-
-
-      } else return false
     }
 
     const getRules = (id, val) => {
@@ -159,7 +115,7 @@ class Cash extends Component {
           return [
             {
               required: true,
-              message: 'Обязательное поле',
+              message: 'Обязательное поле'
             }
           ];
         case "minLength":
@@ -217,38 +173,63 @@ class Cash extends Component {
 
     const {changeInput} = this.props
 
+
     const formPersonalData = {
-      ref: this.personalDataForm,
       items: [
         {
           name: "secondName",
           label: "Фамилия",
           rules: getRules("minLength"),
-          children: <TextInput name={"secondName"} type="text" onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+          children: <TextInput
+            name={"secondName"}
+            type="text"
+            //onBlur={(e)=> form ? form.validateFields([e.target.name]) : null}
+            onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}
+          />
         },
         {
           name: "name",
           label: "Имя",
           rules: getRules("minLength"),
-          children: <TextInput name={"name"} type="text" onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+          children: <TextInput
+            name={"name"}
+            type="text"
+            //onBlur={(e)=> form ? form.validateFields([e.target.name]) : null}
+            onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)
+            }
+          />
         },
         {
           name: "thirdName",
           label: "Отчество",
           rules: getRules("minLength"),
-          children: <TextInput name={"thirdName"} type="text" onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}/>
+          children:
+            <TextInput
+              name={"thirdName"}
+              type="text"
+              //onBlur={(e)=> form.validateFields([e.target.name])}
+              onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}
+            />
         },
         {
           name: "IIN",
           label: "ИИН",
           rules: getRules("length", 12),
-          children: <MaskInput name={"IIN"} mask={"000000-0-0000-0"} inputMode="decimal" onChange={e => changeInput("IIN", e.unmaskedValue)}/>
+          children: <MaskInput
+            name={"IIN"}
+            mask={"000000-0-0000-0"}
+            inputMode="decimal"
+            onChange={e => changeInput("IIN", e.unmaskedValue)}
+          />
         },
         {
           name: "Phone",
           label: "Телефон",
           rules: getRules("phone", 10),
-          children: <PhoneInput name={"Phone"} onChange={e => changeInput("Phone", e.unmaskedValue)}/>
+          children: <PhoneInput
+            name={"Phone"}
+            onChange={e => changeInput("Phone", e.unmaskedValue)}
+          />
         },
         {
           name: "city",
@@ -262,7 +243,6 @@ class Cash extends Component {
     }
 
     const formPassportData = {
-      ref: this.passportDataForm,
       items: [
         {
           name: "documentType",
@@ -289,7 +269,6 @@ class Cash extends Component {
     }
 
     const formIncomeInformation = {
-      ref: this.personalDataForm,
       items: [
         {
           name: "notSoleTrader",
@@ -341,74 +320,54 @@ class Cash extends Component {
     }
 
     const personalData = () => {
-      return (
-        <Form
-          ref={this.personalDataForm}
-          size="large"
-          layout="vertical"
-          className={classes.form}
-        >
-          {formPersonalData.items.map((el, ind) => {
-            return (
-              <Form.Item
-                key={ind}
-                fieldKey={ind}
-                {...el}
-              >
-                {el.children}
-              </Form.Item>
-            )
-          })}
-        </Form>
+      return (formPersonalData.items.map((el, ind) => {
+        return (
+          <Form.Item
+            key={ind}
+            fieldKey={ind}
+            {...el}
+            /*getValueProps={e => {
+              return {value: this.props.form[el.name]}
+            }}*/
+          >
+            {el.children}
+          </Form.Item>
+        )
+      })
       )
     }
 
     const passportData = () => {
       return (
-        <Form
-          ref={this.passportDataForm}
-          size="large"
-          layout="vertical"
-          className={classes.form}
-        >
-          {formPassportData.items.map((el, ind) => {
-            return (
-              <Form.Item
-                key={ind}
-                fieldKey={ind}
-                {...el}
-              >
-                {el.children}
-              </Form.Item>
-            )
-          })}
-        </Form>
+        formPassportData.items.map((el, ind) => {
+          return (
+            <Form.Item
+              key={ind}
+              fieldKey={ind}
+              {...el}
+            >
+              {el.children}
+            </Form.Item>
+          )
+        })
       )
     }
 
     const incomeInformation = () => {
       return (
-        <Form
-          ref={this.incomeInformationForm}
-          size="large"
-          layout="vertical"
-          className={classes.form}
 
-        >
-          {
-            formIncomeInformation.items.map((el, ind) => {
-              return (
-                <Form.Item
-                  key={ind}
-                  fieldKey={ind}
-                  {...el}
-                >
-                  {el.children}
-                </Form.Item>
-              )
-            })
-          }
-        </Form>
+        formIncomeInformation.items.map((el, ind) => {
+          return (
+            <Form.Item
+              key={ind}
+              fieldKey={ind}
+              {...el}
+            >
+              {el.children}
+            </Form.Item>
+          )
+        })
+
       )
     }
 
@@ -433,8 +392,6 @@ class Cash extends Component {
 
     const {step} = this.state;
 
-    console.log("FORM =>", this.props.form)
-
     return (
       <>
         <div className={`${classes.wrapper} ${this.state.loading ? classes.loading : ""}`} >
@@ -447,30 +404,35 @@ class Cash extends Component {
             <p>Уважаемый клиент! Вы можете заполнить предварительную заявку на получение кредита не посещая офис Банка.</p>
             <p>Наши специалисты свяжутся с Вами и предоставят подробную консультацию, определят оптимальные условия кредитования для Вашего бюджета.</p>
 
-            <Tabs
-              //defaultActiveKey="1"
-              activeKey={step}
-              animated
-              className={classes.tabs}
-              items={tabsItem}
-              onChange={id => onStepChangeTab(id, step, tabsItem.length)}/>
+            <Form
+              ref={this.personalDataForm}
+              size="large"
+              layout="vertical"
+              className={classes.form}
 
+            >
+              <Tabs
+                activeKey={step}
+                animated
+                className={classes.tabs}
+                items={tabsItem}
+                onChange={id => onStepChange(step, id, tabsItem.length)}/>
+            </Form>
             <Row gutter={16} style={{marginTop:20}}>
               {
                 step > 1 ?
                   <Col span={12}>
                     <PrimaryButton
                       size="small"
-                      onClick={()=> onStepChange(step - 1, tabsItem.length)}
+                      onClick={()=> onStepChange(step,step - 1, tabsItem.length)}
                       title={"Предыдущий шаг"}
                     />
                   </Col> : null
               }
-
               <Col span={step > 1 ? 12 : 24}>
                 <PrimaryButton
                   size="small"
-                  onClick={()=> onStepChange(step + 1, tabsItem.length, this.getFormRef(step))}
+                  onClick={()=> onStepChange(step,step + 1, tabsItem.length)}
                   title={step ===  tabsItem.length ? "Отправить" : "Следующий шаг"}
                 />
               </Col>
