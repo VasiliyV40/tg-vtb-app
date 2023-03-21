@@ -41,7 +41,7 @@ class Cash extends Component {
 
 
   render() {
-    const form = this.personalDataForm.current
+
     const openNotification = (placement) => {
       notification.success({
         message: "Заявка успешно отправлена",
@@ -57,9 +57,8 @@ class Cash extends Component {
       }
     }
 
-
-
     const onStepChange = (currentStep, nextStep, maxStep) => {
+      const form = this.personalDataForm.current
       if(nextStep === currentStep + 1 && nextStep - 1 !== maxStep) {
         form.validateFields(getList(currentStep))
           .then((data)=>{
@@ -84,7 +83,7 @@ class Cash extends Component {
                 step: currentStep + 1
               })
             }
-          });
+          }).catch(err => {})
       } else if (nextStep < currentStep) {
         this.setState({
           step: nextStep
@@ -105,7 +104,7 @@ class Cash extends Component {
               form.resetFields();
               openNotification('bottom');
             }, 3000)
-          })
+          }).catch(err => {})
       }
     }
 
@@ -172,7 +171,6 @@ class Cash extends Component {
     const dataSource = ["Телевидение", "Радио", "Пресса", "Печатные материалы банка (буклеты, плакаты)", "Наружная реклама", "Интернет реклама", "Рекомендации близких, друзей, плакаты", "Уже являюсь клиентом банка ВТБ (Казахстан)", "Рекламное сообщение, письмо"]
 
     const {changeInput} = this.props
-
 
     const formPersonalData = {
       items: [
@@ -243,6 +241,7 @@ class Cash extends Component {
     }
 
     const formPassportData = {
+      ref: this.passportDataForm,
       items: [
         {
           name: "documentType",
@@ -269,6 +268,7 @@ class Cash extends Component {
     }
 
     const formIncomeInformation = {
+      ref: this.personalDataForm,
       items: [
         {
           name: "notSoleTrader",
@@ -418,6 +418,8 @@ class Cash extends Component {
                 items={tabsItem}
                 onChange={id => onStepChange(step, id, tabsItem.length)}/>
             </Form>
+
+
             <Row gutter={16} style={{marginTop:20}}>
               {
                 step > 1 ?
@@ -429,6 +431,7 @@ class Cash extends Component {
                     />
                   </Col> : null
               }
+
               <Col span={step > 1 ? 12 : 24}>
                 <PrimaryButton
                   size="small"
