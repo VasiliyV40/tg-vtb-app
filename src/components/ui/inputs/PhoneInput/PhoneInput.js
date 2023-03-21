@@ -19,19 +19,16 @@ const prefixSelector = (
 )
 
 const PhoneInput = (props) => {
-  const {onChange, name, data} = props
-
   return (
     <MaskedInput
+      {...props}
       addonBefore={prefixSelector}
       style={{
         width: '100%',
       }}
       className={classes.input}
-      name={name}
       size={"large"}
       mask={'(000) 000-00-00'}
-      onChange={onChange}
       inputMode="tel"
     />
   );

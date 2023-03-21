@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Navigate, Redirect} from "react-router-dom";
 import classes from './cash.module.scss';
 import {
   Card,
@@ -21,8 +20,6 @@ import DateSelect from "../../../ui/selects/DateSelect";
 import Checkbox from "../../../ui/selects/Checkbox";
 import Loader from "../../../Loader/Loader";
 
-
-
 class Cash extends Component {
 
   personalDataForm = React.createRef();
@@ -41,7 +38,6 @@ class Cash extends Component {
 
 
   render() {
-
     const openNotification = (placement) => {
       notification.success({
         message: "Заявка успешно отправлена",
@@ -181,7 +177,6 @@ class Cash extends Component {
           children: <TextInput
             name={"secondName"}
             type="text"
-            //onBlur={(e)=> form ? form.validateFields([e.target.name]) : null}
             onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}
           />
         },
@@ -192,7 +187,6 @@ class Cash extends Component {
           children: <TextInput
             name={"name"}
             type="text"
-            //onBlur={(e)=> form ? form.validateFields([e.target.name]) : null}
             onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)
             }
           />
@@ -205,7 +199,6 @@ class Cash extends Component {
             <TextInput
               name={"thirdName"}
               type="text"
-              //onBlur={(e)=> form.validateFields([e.target.name])}
               onChange={e => changeInput(e.target.name, e.target.value, /[^a-zа-яё]/gi)}
             />
         },
@@ -216,7 +209,7 @@ class Cash extends Component {
           children: <MaskInput
             name={"IIN"}
             mask={"000000-0-0000-0"}
-            inputMode="decimal"
+            inputMode="tel"
             onChange={e => changeInput("IIN", e.unmaskedValue)}
           />
         },
@@ -241,7 +234,6 @@ class Cash extends Component {
     }
 
     const formPassportData = {
-      ref: this.passportDataForm,
       items: [
         {
           name: "documentType",
@@ -256,7 +248,7 @@ class Cash extends Component {
           name: "documentNumber",
           label: "Номер документа удостоверящего личность",
           rules: getRules("length", 10),
-          children: <MaskInput name={"IIN"} mask={"0000-000000"} onChange={e => changeInput("documentNumber", e.unmaskedValue)}/>
+          children: <MaskInput name={"IIN"} mask={"0000-000000"} inputMode="tel" onChange={e => changeInput("documentNumber", e.unmaskedValue)}/>
         },
         {
           name: "documentDate",
@@ -268,7 +260,6 @@ class Cash extends Component {
     }
 
     const formIncomeInformation = {
-      ref: this.personalDataForm,
       items: [
         {
           name: "notSoleTrader",
@@ -296,6 +287,7 @@ class Cash extends Component {
             name={"paymentAmount"}
             onChange={e => changeInput(e.target.name, e.target.value, /[\D]+/g)}
             prefix={"₸"}
+            inputMode="tel"
           />
         },
         {
@@ -319,20 +311,19 @@ class Cash extends Component {
       ]
     }
 
-    const personalData = () => {
+    const personalData = (form) => {
       return (formPersonalData.items.map((el, ind) => {
+        const valid = form.current ? form.current.getFieldError(el.name).length > 0 : false
         return (
           <Form.Item
             key={ind}
             fieldKey={ind}
+            validateTrigger={valid ? "onChange" : "onBlur"}
             {...el}
-            /*getValueProps={e => {
-              return {value: this.props.form[el.name]}
-            }}*/
           >
             {el.children}
           </Form.Item>
-        )
+          )
       })
       )
     }
@@ -375,18 +366,17 @@ class Cash extends Component {
       {
         key: 1,
         label: `Личные данные`,
-        children: personalData(),
-
+        children: personalData(this.personalDataForm)
       },
       {
         key: 2,
         label: `Паспортные данные`,
-        children: passportData(),
+        children: passportData(this.personalDataForm)
       },
       {
         key: 3,
         label: `Сведения о доходах`,
-        children: incomeInformation(),
+        children: incomeInformation(this.personalDataForm)
       }
     ]
 
@@ -409,7 +399,6 @@ class Cash extends Component {
               size="large"
               layout="vertical"
               className={classes.form}
-
             >
               <Tabs
                 activeKey={step}
@@ -418,7 +407,6 @@ class Cash extends Component {
                 items={tabsItem}
                 onChange={id => onStepChange(step, id, tabsItem.length)}/>
             </Form>
-
 
             <Row gutter={16} style={{marginTop:20}}>
               {
@@ -441,7 +429,6 @@ class Cash extends Component {
               </Col>
             </Row>
           </Card>
-
         </div>
         {
           this.state.loading && <Loader/>
