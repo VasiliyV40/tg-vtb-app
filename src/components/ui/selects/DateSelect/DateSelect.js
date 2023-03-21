@@ -1,20 +1,22 @@
 import React from 'react';
-import locale from "antd/locale/ru_RU";
+
 import {ConfigProvider, DatePicker} from "antd";
-import classes from "./dateSelect.module.scss"
+import classes from "./dateSelect.module.scss";
+
+import locale from 'antd/es/date-picker/locale/ru_RU';
+import 'dayjs/locale/ru';
 
 const DateSelect = (props) => {
   return (
-    <ConfigProvider locale={locale}>
       <DatePicker
         style={{width: "100%"}}
         className={classes.select}
+        locale={locale}
         onChange={(data, dateString) => {
           props.onChange(props.name, dateString)
           return data
         }}
       />
-    </ConfigProvider>
   );
 };
 
