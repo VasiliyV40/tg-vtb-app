@@ -1,0 +1,41 @@
+.wrapper {
+  padding: 16px;
+
+  .card {
+    overflow: hidden;
+
+    .row {
+      margin-bottom: 16px;
+      line-height:16px;
+
+      :global {
+        .ant-col {
+          &:nth-child(4n), &:nth-child(4n+3){
+            font-weight: bold;
+            padding-top: 5px;
+          }
+        }
+      }
+    }
+
+    .background {
+      width:calc(100% + 32px);
+      margin: -16px -16px 16px -16px;
+    }
+
+    .form {
+      :global {
+        .ant-form-item {
+          margin-bottom: 10px;
+        }
+        .ant-form-item-label {
+          padding-bottom: 2px;
+
+          label {
+            height: 24px;
+          }
+        }
+      }
+    }
+  }
+}

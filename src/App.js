@@ -21,6 +21,7 @@ import Accounts from "./components/pages/Accounts/Accounts";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import OrderCallback from "./components/pages/OrderCallback/OrderCallback";
 
 const {tg, onToggleButton} = useTelegram();
 
@@ -42,6 +43,7 @@ class App extends Component {
         <Route path={"credits/cash"} element={<Cash/>}/>
         <Route path={"credits/auto"} element={<Auto/>}/>
         <Route path={"credits/consumer"} element={<Consumer/>}/>
+        <Route path={"orderCallback"} element={<OrderCallback/>}/>
       </Routes>
     )
 

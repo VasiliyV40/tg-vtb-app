@@ -44,6 +44,8 @@ input {
   }
 }
 
+
+
 .app {
   display: flex;
   flex-direction: column;
@@ -59,5 +61,31 @@ input {
   }
   .ant-form-item-has-error .ant-form-item-explain-error {
     color:#E53434;
+  }
+
+  ul.list {
+    color: #1677ff;
+    li {
+      color: #000000;
+      vertical-align: text-bottom;
+      font-size: 16px;
+      line-height: 22px;
+      list-style-type: none;
+      position: relative;
+      padding-left: 15px;
+      &:before {
+        position: absolute;
+        color: #1677ff;
+        content: "●";
+        padding-right: 10px ;
+        top: 1px;
+        left: 0;
+        font-size: 14px;
+      }
+      li:before {
+        font-size: 7px;
+        content: "■";
+      }
+    }
   }
 }

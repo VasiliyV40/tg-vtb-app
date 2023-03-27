@@ -13,8 +13,9 @@ const PrimaryButton = (props) => {
       }}
     >
       {link ?
-        <Link to={`./${link}`}>
+        <Link to={`${link}`}>
           <Button
+            {...props}
             size={size ? size : "large"}
             type="primary"
             block
@@ -24,6 +25,7 @@ const PrimaryButton = (props) => {
           </Button>
         </Link> :
         <Button
+          {...props}
           size={size ? size : "large"}
           type="primary"
           block
