@@ -53,9 +53,6 @@ class ExchangeRates extends Component {
           currency="rub"
           chart="down"
         />
-        <div onClick={test}>
-          fdfdfd
-        </div>
       </div>
     );
   }
