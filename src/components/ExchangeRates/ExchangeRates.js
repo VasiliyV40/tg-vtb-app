@@ -17,9 +17,17 @@ class ExchangeRates extends Component {
 
   render() {
 
+    async function fetchAsync (url) {
+      let response = await fetch(url);
+      let data = await response.json();
+      return data;
+    }
+
     const test = () => {
+
       axios.get('https://nationalbank.kz/rss/rates_all.xml')
-        .then(resp => console.log("RATE =>", resp)).catch(error => console.log("Error => ", error))
+        .then(resp => console.log("RATE =>", resp))
+        .catch(error => console.log("Error => ", error))
     }
 
     return (
