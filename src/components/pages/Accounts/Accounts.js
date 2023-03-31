@@ -57,7 +57,7 @@ class Accounts extends Component {
     this.setState({
       loading: true
     })
-    setTimeout(() => this.fetchData(this.fetchDataObj), 3000)
+    setTimeout(() => this.fetchData(this.fetchDataObj), 1000)
   }
 
   fetchData = (data) => {

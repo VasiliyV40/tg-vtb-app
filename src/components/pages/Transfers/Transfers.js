@@ -14,17 +14,17 @@ class Transfers extends Component {
   render() {
     const service = [
       {
-        title: "<div style='text-align: center'>На карту<br/> МИР</div>",
+        title: <div>На карту<br/> МИР</div>,
         icon: mir,
         link: "accounts"
       },
       {
-        title: "<div style='text-align: center'>На карту<br/> ВТБ</div>",
+        title: <div>На карту<br/> ВТБ</div>,
         icon: vtb,
         link: "issue-card"
       },
       {
-        title: "<div style='text-align: center'>Золотая<br/>Корона</div>",
+        title: <div>Золотая<br/>Корона</div>,
         icon: korona,
         link: "payments",
         bgColor: "#df212f"

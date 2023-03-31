@@ -4,7 +4,7 @@ import classes from './button.module.scss'
 import {Link} from "react-router-dom";
 
 const PrimaryButton = (props) => {
-  const {title, link, size} = props
+  const {title, link, size, type} = props
   return (
     <Space
       direction="vertical"
@@ -29,7 +29,7 @@ const PrimaryButton = (props) => {
           size={size ? size : "large"}
           type="primary"
           block
-          className={classes.button}
+          className={`${classes.button} ${type ? classes.default : null} `}
           onClick={props?.onClick}
         >
           {title}

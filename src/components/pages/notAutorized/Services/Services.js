@@ -10,9 +10,10 @@ import CreditCar from '../../../../images/slider-icon/credit-car.jpg'
 import CreditGold from '../../../../images/slider-icon/credit-gold.jpg'
 
 import ServiceButton from '../../../ui/buttons/ServiceButton';
-import {Col, Row, Modal} from 'antd';
+import {Col, Row, Modal, Space} from 'antd';
 import Slider from "../../../Slider";
 import SliderModal from "../../../ui/modal/SliderModal";
+import {Link} from "react-router-dom";
 
 
 class Services extends Component {
@@ -39,12 +40,12 @@ class Services extends Component {
 
     const service = [
       {
-        title: "Взять<br/> кредит",
+        title: <span>Взять<br/> кредит</span>,
         icon: credit,
         link: "credits"
       },
       {
-        title: "Переводы<br/> в Россию",
+        title: <span>Переводы<br/> в Россию</span>,
         icon: remittance,
         link: "transfers"
       },
@@ -99,6 +100,15 @@ class Services extends Component {
             }
           </Row>
           <PrimaryButton title="Войти в личный кабинет" link="signIn" />
+          <Space
+            align="center"
+            direction="vertical"
+            style={{
+              width: '100%',
+            }}
+          >
+            <Link to={`/registration`} className={classes.link}>Регистрация</Link>
+          </Space>
         </div>
         <SliderModal open={this.state.showModal} onCancel={closeModal} />
 

@@ -16,6 +16,10 @@
 
   .verticalText {
     margin-top: auto;
+    * {
+      text-align: center;
+      display: block;
+    }
   }
   .text {
     margin-left: 16px;
