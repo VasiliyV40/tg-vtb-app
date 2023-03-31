@@ -5,11 +5,15 @@ import PrimaryButton from '../../../ui/buttons/PrimaryButton';
 import credit from '../../../../images/credit-icon.svg';
 import remittance from '../../../../images/remittance-ru-icon.svg'
 import protectIcon from '../../../../images/slider-icon/protect_icon.svg'
+import CreditBg from '../../../../images/slider-icon/credit-bg.jpg'
+import CreditCar from '../../../../images/slider-icon/credit-car.jpg'
+import CreditGold from '../../../../images/slider-icon/credit-gold.jpg'
 
 import ServiceButton from '../../../ui/buttons/ServiceButton';
 import {Col, Row, Modal} from 'antd';
 import Slider from "../../../Slider";
 import SliderModal from "../../../ui/modal/SliderModal";
+
 
 class Services extends Component {
 
@@ -17,7 +21,7 @@ class Services extends Component {
     showModal : false
   }
 
-  render() {
+  render(props) {
 
 
     const openModal = () => {
@@ -31,6 +35,7 @@ class Services extends Component {
         showModal: false
       });
     }
+
 
     const service = [
       {
@@ -49,32 +54,34 @@ class Services extends Component {
       {
         color: "#ffffff",
         bgColor: "#3272F1",
+        title: <span>Кредит наличными<br/> до 6 млн тг</span>,
+        background: CreditBg,
+        link: "/credits/cash"
+      },
+      {
+        color: "#000000",
+        bgColor: "#c30102",
+        title: "Автокредит",
+        background: CreditCar,
+        link: "/credits/auto"
+      },
+      {
+        color: "#ffffff",
+        bgColor: "#3272F1",
+        title: <span>Купить золото<br/> в слитках</span>,
+        background: CreditGold,
+      },
+      {
+        color: "#ffffff",
+        bgColor: "#3272F1",
         title: "Осторожно мошенники",
         icon: protectIcon,
         action: openModal,
       },
-      {
-        title: "История 2"
-      },
-      {
-        title: "История 3"
-      },
-      {
-        title: "История 4"
-      },
-      {
-        title: "История 5"
-      },
-      {
-        title: "История 6"
-      },
-      {
-        title: "История 7"
-      },
-      {
-        title: "История 8"
-      },
     ]
+
+
+    console.log("Props", window.history)
 
     return (
       <>
