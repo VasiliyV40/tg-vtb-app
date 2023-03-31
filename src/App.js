@@ -34,17 +34,19 @@ class App extends Component {
   render() {
 
     let routes = (
-      <Routes>
-        <Route index element={<Services/>}/>
-        <Route path={"signIn"} element={<SignIn/>}/>
-        <Route path={"resetPassword"} element={<ResetPassword/>}/>
-        <Route path={"credits"} element={<Credits/>}/>
-        <Route path={"transfers"} element={<Transfers/>}/>
-        <Route path={"credits/cash"} element={<Cash/>}/>
-        <Route path={"credits/auto"} element={<Auto/>}/>
-        <Route path={"credits/consumer"} element={<Consumer/>}/>
-        <Route path={"orderCallback"} element={<OrderCallback/>}/>
-      </Routes>
+
+        <Routes>
+          <Route index element={<Services/>}/>
+          <Route path={"signIn"} element={<SignIn/>}/>
+          <Route path={"resetPassword"} element={<ResetPassword/>}/>
+          <Route path={"credits"} element={<Credits/>}/>
+          <Route path={"transfers"} element={<Transfers/>}/>
+          <Route path={"credits/cash"} element={<Cash/>}/>
+          <Route path={"credits/auto"} element={<Auto/>}/>
+          <Route path={"credits/consumer"} element={<Consumer/>}/>
+          <Route path={"orderCallback"} element={<OrderCallback/>}/>
+        </Routes>
+
     )
 
     if (this.props.signIn){
@@ -66,7 +68,9 @@ class App extends Component {
     return (
       <div className={classes.app}>
         <Header/>
-        {routes}
+
+          {routes}
+
         {/*<button onClick={onToggleButton}>toggle</button>*/}
 
       </div>
