@@ -10,14 +10,17 @@ class ExchangeRates extends Component {
     rate: {}
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     axios.post('https://nationalbank.kz/rss/rates_all.xml')
       .then(resp => console.log("RATE =>", resp))
-  }
+  }*/
 
-  render() {  
+  render() {
 
-
+    const test = () => {
+      axios.get('https://nationalbank.kz/rss/rates_all.xml')
+        .then(resp => console.log("RATE =>", resp)).catch(error => console.log("Error => ", error))
+    }
 
     return (
       <div className={classes.wrapper}>
@@ -31,6 +34,9 @@ class ExchangeRates extends Component {
           currency="rub"
           chart="down"
         />
+        <div onClick={test}>
+          fdfdfd
+        </div>
       </div>
     );
   }
