@@ -23,15 +23,22 @@ class ExchangeRates extends Component {
       return data;
     }
 
-    const test = () => {
 
-      axios({
+
+    const test = () => {
+      axios.get("http://qiwi.kz:8001/voucher")
+        .then(resp => console.log("GET => ", resp))
+
+      /*axios({
         method: 'get',
         url: 'https://nationalbank.kz/rss/rates_all.xml',
-        responseType: 'text/xml'
+        responseType: 'text/xml',
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
       })
         .then(resp => console.log("RATE =>", resp))
-        .catch(error => console.log("Error => ", error))
+        .catch(error => console.log("Error => ", error))*/
     }
 
     return (
