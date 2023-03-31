@@ -25,7 +25,11 @@ class ExchangeRates extends Component {
 
     const test = () => {
 
-      axios.get('https://nationalbank.kz/rss/rates_all.xml')
+      axios({
+        method: 'get',
+        url: 'https://nationalbank.kz/rss/rates_all.xml',
+        responseType: 'text/xml'
+      })
         .then(resp => console.log("RATE =>", resp))
         .catch(error => console.log("Error => ", error))
     }
