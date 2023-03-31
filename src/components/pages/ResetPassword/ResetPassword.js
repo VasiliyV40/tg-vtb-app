@@ -8,6 +8,7 @@ import classes from '../SignIn/signin.module.scss'
 
 
 class ResetPassword extends Component {
+
   render() {
     return (
       <div  className={classes.wrapper}>

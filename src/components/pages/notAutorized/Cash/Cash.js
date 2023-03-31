@@ -382,6 +382,8 @@ class Cash extends Component {
 
     const {step} = this.state;
 
+    console.log("Props", this.props.form)
+
     return (
       <>
         <div className={`${classes.wrapper} ${this.state.loading ? classes.loading : ""}`} >

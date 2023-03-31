@@ -135,7 +135,7 @@ class SignIn extends Component {
                       width: '100%',
                     }}
                   >
-                    <Link to={`/resetPassword`} className={classes.link}>Забыли пароль?</Link>
+                    <Link to={`/registration`} className={classes.link}>Забыли пароль?</Link>
                   </Space>
                 </Col>
               </Row>
