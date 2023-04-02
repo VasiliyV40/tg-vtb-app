@@ -8,6 +8,7 @@ import PasswordInput from "../../ui/inputs/PasswordInput";
 import {changeInput, clearForm} from "../../../store/actions/registration";
 import Loader from "../../Loader/Loader";
 import PhoneInput from "../../ui/inputs/PhoneInput";
+import withRouter from "../../../hoc/withRouter";
 
 
 class Register extends Component {
@@ -82,6 +83,7 @@ class Register extends Component {
             this.setState({
               loading: true
             });
+
             setTimeout(() => {
               this.props.clearForm();
               this.setState({
@@ -91,7 +93,8 @@ class Register extends Component {
               });
               form.resetFields();
               openNotification('bottom');
-            }, 3000)
+              this.props.navigate("/");
+            }, 1500)
           }).catch(err => {
         })
       }
@@ -296,4 +299,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Register));
