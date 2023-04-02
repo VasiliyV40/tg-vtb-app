@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './button.module.scss';
-import DangerousHTML from "react-dangerous-html/lib/DangerousHTML";
 import {Link} from "react-router-dom";
 
 const ServiceButton = (props) => {

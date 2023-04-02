@@ -16,15 +16,6 @@ class ExchangeRates extends Component {
   }*/
 
   render() {
-
-    async function fetchAsync (url) {
-      let response = await fetch(url);
-      let data = await response.json();
-      return data;
-    }
-
-
-
     const test = () => {
       axios.get("http://qiwi.kz:8001/voucher")
         .then(resp => console.log("GET => ", resp))
