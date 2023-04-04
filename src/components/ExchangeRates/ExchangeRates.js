@@ -2,39 +2,61 @@ import React, {Component} from 'react';
 import classes from './exchange.module.scss'
 import ExchangeItem from './ExchangeItem';
 import axios from "axios";
+import {Skeleton} from "antd";
 
 
 
 class ExchangeRates extends Component {
   state = {
-    rate: {}
+    rate: [],
+    loading: true
   }
 
-  /*componentDidMount() {
-    axios.post('https://nationalbank.kz/rss/rates_all.xml')
-      .then(resp => console.log("RATE =>", resp))
-  }*/
+  componentDidMount() {
+    axios.get('https://api.proidea.tech/exchange/get_rates')
+      .then(({data}) => this.setState({rate: data.item, loading: false}))
+      .catch(error => console.log("Error => ", error))
+  }
 
   render() {
-    const test = () => {
-      axios.get("http://qiwi.kz:8001/voucher")
-        .then(resp => console.log("GET => ", resp))
 
-      /*axios({
-        method: 'get',
-        url: 'https://nationalbank.kz/rss/rates_all.xml',
-        responseType: 'text/xml',
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-        .then(resp => console.log("RATE =>", resp))
-        .catch(error => console.log("Error => ", error))*/
-    }
+    console.log("State =>", this.state)
 
     return (
       <div className={classes.wrapper}>
-        <ExchangeItem
+        {
+          <Skeleton
+            size={"small"}
+            style={{
+              display: "flex"
+            }}
+            avatar={{
+              size: "small"
+            }}
+            paragraph={{
+              rows: 0,
+              style: {marginTop: 0}
+            }}
+            title={{
+              style: {margin: "5px 0 0 0"}
+            }}
+            loading={this.state.loading}
+          >
+            {
+              this.state.rate.map((el, ind) => {
+                return (
+                  <ExchangeItem
+                    key={ind}
+                    value={el.description}
+                    currency={el.title.toLowerCase()}
+                    chart={el.index.toLowerCase()}
+                  />
+                )
+              })
+            }
+          </Skeleton>
+        }
+        {/*<ExchangeItem
           value="447,1 - 449,7"
           currency="usd"
           chart="up"
@@ -43,7 +65,7 @@ class ExchangeRates extends Component {
           value="5,9 - 6,1"
           currency="rub"
           chart="down"
-        />
+        />*/}
       </div>
     );
   }
