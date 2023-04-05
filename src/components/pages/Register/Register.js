@@ -94,9 +94,9 @@ class Register extends Component {
 
       setTimeout(() => {
         console.log("------- ", document.getElementById("id_veridoc"))
-        veridoc.init("https://services.verigram.ai:8443/s/veridoc/ru/veridoc/", "", this.config)
+        veridoc.init("https://dev.verilive.verigram.ai/ru/veridoc/", "", this.config)
         .then(() => {
-          console.log("INIT")
+          console.log("INIT", this.state.accessToken?.access_token,this.state.accessToken?.person_id)
           veridoc.setAccessToken(this.state.accessToken?.access_token,this.state.accessToken?.person_id)
           //veridoc.start()
           // Successful initialization. Now you can start scanning.
