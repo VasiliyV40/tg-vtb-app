@@ -21,9 +21,84 @@ class Register extends Component {
     formValid: []
   }
 
+  config = {
+    autoDocType: false,
+    docType: 1,
+    recognitionMode: 1,
+    translitCheck: false,
+    glareCheck: false,
+    photocopyCheck: false,
+    lang: 'ru',
+    hints: {},
+    render: {
+      placeholder: true,
+      startButton: true,
+      containerBorderThickness: 1,
+      containerBorderRadius: 3,
+      containerBorderColor: "#000000",
+      frame: true,
+      frameBorderThickness: 3,
+      frameBorderRadius: 20,
+      frameColor: {
+        default: "rgba(255, 255, 255, 1.0)",
+        detected: "rgba(30, 255, 88, 1.0)"
+      },
+      overlay: true,
+      overlayPermanent: true,
+      overlayColor: {
+        default: "#ffffff"
+      },
+      upperBarColor: {
+        default: "rgba(255, 255, 255, 1.0)"
+      },
+      lowerBarColor: {
+        default: "#a2d2ff",
+        error: "#ffccd5"
+      },
+      buttonColor: {
+        default: "#a2d2ff"
+      },
+      buttonTextColor: {
+        default: "#353535"
+      },
+      overlayTransparency: {
+        default: 0.7
+      },
+      icons: true,
+      hint: true,
+      hintTextColor: {
+        default: "#353535"
+      },
+      hintFontType: "Arial",
+      mirrorPreview: false
+    }
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("!!!!!!!!! ",this.state.step,  prevState.step)
     if (this.state.step === prevState.step) {
       this.registrationForm.current.setFieldsValue({...this.props.form})
+    }
+    if (this.state.step !== prevState.step && this.state.step === 2) {
+
+      setTimeout(() => {
+        console.log("------- ", document.getElementById("id_veridoc"))
+        veridoc.init("https://services.verigram.ai:8443/s/veridoc/ru/veridoc/", "", this.config)
+        .then(() => {
+          console.log("INIT")
+          //veridoc.start()
+          // Successful initialization. Now you can start scanning.
+        })
+        .catch((e) => {
+          // E.g. Show error to user.
+        });
+
+      }, 0)
+    }
+    if (this.state.step !== prevState.step && this.state.step !== 2 && prevState.step === 2) {
+      
+      veridoc.dispose()
+
     }
   }
 
@@ -45,6 +120,7 @@ class Register extends Component {
     }
 
     const onStepChange = (currentStep, nextStep, maxStep) => {
+      //console.log("Step", currentStep)
       const form = this.registrationForm.current
       if (nextStep === currentStep + 1 && nextStep - 1 !== maxStep) {
         form.validateFields(getList(currentStep))
@@ -73,7 +149,10 @@ class Register extends Component {
             }
           }).catch(err => {
         })
-      } else if (nextStep < currentStep) {
+      } else if (currentStep === 1) {
+        console.log("Шаг Верификации Дока")
+
+      }else if (nextStep < currentStep) {
         this.setState({
           step: nextStep
         })
@@ -165,6 +244,17 @@ class Register extends Component {
       ]
     }
 
+    const formVeriDoc = {
+      items: [
+        {
+          name: "VeriDoc",
+          label: "Биометрия документа",
+          //rules: getRules("phone", 10),
+          children: <div id="id_veridoc"/>
+        }
+      ]
+    }
+
     const formPasswordData = {
       items: [
         {
@@ -182,6 +272,24 @@ class Register extends Component {
     const iinData = (form) => {
       return (
         formIinData.items.map((el, ind) => {
+          //const valid = form.current ? form.current.getFieldError(el.name).length > 0 : false
+          return (
+            <Form.Item
+              key={ind}
+              fieldKey={ind}
+              //validateTrigger={valid ? "onChange" : "onBlur"}
+              {...el}
+            >
+              {el.children}
+            </Form.Item>
+          )
+        })
+      )
+    }
+
+    const veriDoc = (form) => {
+      return (
+        formVeriDoc.items.map((el, ind) => {
           //const valid = form.current ? form.current.getFieldError(el.name).length > 0 : false
           return (
             <Form.Item
@@ -221,14 +329,17 @@ class Register extends Component {
       },
       {
         key: 2,
+        label: `Беометрия документа`,
+        children: veriDoc(this.veriDoc)
+      },
+      {
+        key: 3,
         label: `Пароль`,
         children: passwordData(this.passwordData)
       },
     ]
 
     const {step} = this.state;
-
-    console.log("Props ", this.props.form)
 
     return (
       <div className={classes.wrapper}>
