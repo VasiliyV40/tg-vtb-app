@@ -76,6 +76,32 @@ class Register extends Component {
     }
   }
 
+  successCallback(data) {
+    console.log('Session token is: ' + veridoc.getSessionToken());
+    console.log('success', data);
+    alert('success', data);
+    showResults(data);
+    checkRecognitionWarnings();
+  }
+
+  failCallback(data) {
+    console.log('fail', data);
+    alert('fail', data);
+    showResults(data);
+  }
+
+  errorCallback(data) {
+    console.log('error', data);
+    alert('error', data);
+    showResults(data);
+  }
+
+  updateCallback(data) {
+    console.log('update', data);
+    alert('update', data);
+    showResults(data);
+  }
+
   componentDidMount() {
     axios.get("https://api.proidea.tech/exchange/get_veri_auth").then(({data}) => {
       console.log("getAccessToken", data)
@@ -94,10 +120,15 @@ class Register extends Component {
 
       setTimeout(() => {
         console.log("------- ", document.getElementById("id_veridoc"))
+        veridoc.successCallback = this.successCallback;
+        veridoc.failCallback = this.failCallback;
+        veridoc.errorCallback = this.errorCallback;
+        veridoc.updateCallback = this.updateCallback;
         veridoc.init("https://dev.verilive.verigram.ai/ru/veridoc/", "", this.config)
         .then(() => {
           console.log("INIT", this.state.accessToken?.access_token,this.state.accessToken?.person_id)
-          veridoc.setAccessToken(this.state.accessToken?.access_token,this.state.accessToken?.person_id)
+          veridoc.setAccessToken(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
+          var session_token = veridoc.start();
           //veridoc.start()
           // Successful initialization. Now you can start scanning.
         })
@@ -121,6 +152,7 @@ class Register extends Component {
         placement
       });
     };
+
 
     const getList = (id) => {
       switch (id) {
