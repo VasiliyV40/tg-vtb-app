@@ -96,7 +96,7 @@ class Register extends Component {
       }, 0)
     }
     if (this.state.step !== prevState.step && this.state.step !== 2 && prevState.step === 2) {
-      
+
       veridoc.dispose()
 
     }
@@ -348,7 +348,7 @@ class Register extends Component {
           bodyStyle={{padding: "24px 16px 32px 16px",}}
         >
           <h2 style={{marginBottom: 40}}>
-            Восстановить пароль
+            Регистрация
           </h2>
           <Form
             ref={this.registrationForm}
