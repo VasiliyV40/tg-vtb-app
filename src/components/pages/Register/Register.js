@@ -9,6 +9,7 @@ import {changeInput, clearForm} from "../../../store/actions/registration";
 import Loader from "../../Loader/Loader";
 import PhoneInput from "../../ui/inputs/PhoneInput";
 import withRouter from "../../../hoc/withRouter";
+import axios from "axios";
 
 
 class Register extends Component {
@@ -18,7 +19,8 @@ class Register extends Component {
   state = {
     step: 1,
     loading: false,
-    formValid: []
+    formValid: [],
+    accessToken: {}
   }
 
   config = {
@@ -74,6 +76,15 @@ class Register extends Component {
     }
   }
 
+  componentDidMount() {
+    axios.get("https://api.proidea.tech/exchange/get_veri_auth").then(({data}) => {
+      console.log("getAccessToken", data)
+      this.setState({
+        accessToken: data
+      })
+    }).catch(error => console.log("getAccessTokenError", error))
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("!!!!!!!!! ",this.state.step,  prevState.step)
     if (this.state.step === prevState.step) {
@@ -86,6 +97,7 @@ class Register extends Component {
         veridoc.init("https://services.verigram.ai:8443/s/veridoc/ru/veridoc/", "", this.config)
         .then(() => {
           console.log("INIT")
+          veridoc.setAccessToken(this.state.accessToken?.access_token,this.state.accessToken?.person_id)
           //veridoc.start()
           // Successful initialization. Now you can start scanning.
         })
