@@ -433,7 +433,6 @@ class Register extends Component {
             </Col>
           </Row>
         </Card>
-        <img src={Img} alt="bg"/>
 
         {
           this.state.loading && <Loader/>
