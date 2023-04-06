@@ -10,6 +10,7 @@ import Loader from "../../Loader/Loader";
 import PhoneInput from "../../ui/inputs/PhoneInput";
 import withRouter from "../../../hoc/withRouter";
 import axios from "axios";
+import Img from "../../../images/newIndex.png"
 
 
 class Register extends Component {
@@ -432,6 +433,7 @@ class Register extends Component {
             </Col>
           </Row>
         </Card>
+        <img src={Img} alt="bg"/>
 
         {
           this.state.loading && <Loader/>
