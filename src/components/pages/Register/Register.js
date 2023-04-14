@@ -79,14 +79,14 @@ class Register extends Component {
   successCallback(data) {
     console.log('Session token is: ' + veridoc.getSessionToken());
     console.log('success', data);
-    alert('success', data);
+    //alert('success', data);
     showResults(data);
     checkRecognitionWarnings();
   }
 
   failCallback(data) {
     console.log('fail', data);
-    alert('fail', data);
+    //alert('fail', data);
     showResults(data);
   }
 
@@ -98,7 +98,7 @@ class Register extends Component {
 
   updateCallback(data) {
     console.log('update', data);
-    alert('update', data);
+    //alert('update', data);
     showResults(data);
   }
 
