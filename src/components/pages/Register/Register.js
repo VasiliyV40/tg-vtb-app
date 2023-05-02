@@ -216,7 +216,7 @@ class Register extends Component {
       verilive.init("https://services.verigram.ai:8443/s/verilive/verilive", "", this.configLive).then(data => {
         verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
       }).catch(error => {
-        document.getElementById("resiltLive").innerHTML = error
+        document.getElementById("resultLive").innerHTML = error
       })
     }
   }
@@ -434,7 +434,7 @@ class Register extends Component {
               >
                 {el.children}
               </Form.Item>
-              <div id="resiltLive"/>
+              <div id="resultLive" style={{padding: 20, backgroundColor: "red", color: "white"}}/>
             </>
 
           )
