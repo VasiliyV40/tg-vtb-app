@@ -215,6 +215,8 @@ class Register extends Component {
     if (this.state.step !== prevState.step && this.state.step === 3) {
       verilive.init("https://services.verigram.ai:8443/s/verilive/verilive", "", this.configLive).then(data => {
         verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
+      }).catch(error => {
+        document.getElementById("resiltLive").innerHTML = error
       })
     }
   }
@@ -424,13 +426,17 @@ class Register extends Component {
       return (
         formPasswordData.items.map((el, ind) => {
           return (
-            <Form.Item
-              key={ind}
-              fieldKey={ind}
-              {...el}
-            >
-              {el.children}
-            </Form.Item>
+            <>
+              <Form.Item
+                key={ind}
+                fieldKey={ind}
+                {...el}
+              >
+                {el.children}
+              </Form.Item>
+              <div id="resiltLive"/>
+            </>
+
           )
         })
       )
