@@ -135,6 +135,7 @@ class Register extends Component {
       'away': 'Отдалитесь',
       'closerToCenter': 'Ближе к Центру Экрана',
       'сameraNotReadableError' : "Камера не найдена",
+      'CameraNotReadableError' : "Камера не найдена",
 
       'targetLeft': 'Медленно Поворачивайте Голову Влево',
       'targetRight': 'Медленно Поворачивайте Голову Вправо',
