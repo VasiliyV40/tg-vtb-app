@@ -213,11 +213,14 @@ class Register extends Component {
       veridoc.dispose()
     }
     if (this.state.step !== prevState.step && this.state.step === 3) {
-      verilive.init("https://services.verigram.ai:8443/s/verilive/verilive", "", this.configLive).then(data => {
-        verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
-      }).catch(error => {
-        document.getElementById("resultLive").innerHTML = error
-      })
+      setTimeout(() => {
+        verilive.init("https://services.verigram.ai:8443/s/verilive/verilive", "", this.configLive).then(data => {
+          verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
+        }).catch(error => {
+          document.getElementById("resultLive").innerHTML = error
+        })
+      }, 0)
+
     }
   }
 
