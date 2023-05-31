@@ -186,9 +186,10 @@ class Register extends Component {
     console.log("!!!!!!!!! ",verilive)
     if (this.state.step === prevState.step) {
       this.registrationForm.current.setFieldsValue({...this.props.form})
+      console.log("1 ", this.state.accessToken)
     }
     if (this.state.step !== prevState.step && this.state.step === 2) {
-
+      console.log("2 ", this.state.accessToken)
       setTimeout(() => {
         console.log("------- ", document.getElementById("id_veridoc"))
         veridoc.successCallback = this.successCallback;
@@ -210,12 +211,17 @@ class Register extends Component {
       }, 0)
     }
     if (this.state.step !== prevState.step && this.state.step !== 2 && prevState.step === 2) {
+      console.log("3 ", this.state.accessToken)
       veridoc.dispose()
     }
     if (this.state.step !== prevState.step && this.state.step === 3) {
+      console.log("4 ", this.state.accessToken)
       setTimeout(() => {
+
         verilive.init("https://services.verigram.ai:8443/s/verilive/verilive", "", this.configLive).then(data => {
+
           verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
+
         }).catch(error => {
           document.getElementById("resultLive").innerHTML = error
         })
