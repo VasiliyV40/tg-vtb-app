@@ -223,7 +223,7 @@ class Register extends Component {
           verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
 
         }).catch(error => {
-          document.getElementById("resultLive").innerHTML = error
+          document.getElementById("resultLive").innerHTML = error + ", version: " + verilive.version
         })
       }, 0)
 
@@ -436,6 +436,7 @@ class Register extends Component {
         formPasswordData.items.map((el, ind) => {
           return (
             <>
+              {verilive.version}
               <Form.Item
                 key={ind}
                 fieldKey={ind}
