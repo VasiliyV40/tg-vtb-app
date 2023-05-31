@@ -436,7 +436,7 @@ class Register extends Component {
         formPasswordData.items.map((el, ind) => {
           return (
             <>
-              {verilive.version}
+              version: {verilive.version}
               <Form.Item
                 key={ind}
                 fieldKey={ind}
