@@ -183,7 +183,7 @@ class Register extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("!!!!!!!!! ",verilive)
+    console.log("!!!!!!!!! verilive", verilive.version)
     if (this.state.step === prevState.step) {
       this.registrationForm.current.setFieldsValue({...this.props.form})
       console.log("1 ", this.state.accessToken)
