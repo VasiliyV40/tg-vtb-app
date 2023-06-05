@@ -300,6 +300,8 @@ class Register extends Component {
                 this.props.navigate("/");
                 notification.success({message:"Регистрация прошла успешно", duration: 4})
               } else {
+                this.registrationForm.current.resetFields();
+                this.props.changeInput("IIN", "")
                 this.setState({step:1},function (){
                   notification.error({message:"Ошибка", description:"Пройдите регистрацию повторно", duration: 4})
                 })
@@ -631,7 +633,7 @@ class Register extends Component {
           <Row gutter={16} style={{marginTop: 20}}>
             {
               step > 1 ?
-                <Col span={12}>
+                <Col span={24}>
                   <PrimaryButton
                     size="small"
                     onClick={() => onStepChange(step, step - 1, tabsItem.length)}
@@ -640,7 +642,7 @@ class Register extends Component {
                 </Col> : null
             }
             {
-              //(step === 1 || step === 4) &&
+              (step === 1 || step === 6) &&
               <Col span={step > 1 ? 12 : 24}>
                 <PrimaryButton
                   size="small"
