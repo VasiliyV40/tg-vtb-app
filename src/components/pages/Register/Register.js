@@ -151,26 +151,31 @@ class Register extends Component {
     console.log('Session token is: ' + veridoc.getSessionToken());
     console.log('success', data);
     //alert('success', data);
-    showResults(data);
+    //showResults(data);
     checkRecognitionWarnings();
+  }
+
+  successVeriLiveCallback(data) {
+    console.log('VeriLiveCallback =>', data);
+    //alert('success', data);
   }
 
   failCallback(data) {
     console.log('fail', data);
     //alert('fail', data);
-    showResults(data);
+    //showResults(data);
   }
 
   errorCallback(data) {
     console.log('error', data);
     alert('error', data);
-    showResults(data);
+    //showResults(data);
   }
 
   updateCallback(data) {
     console.log('update', data);
     //alert('update', data);
-    showResults(data);
+    //showResults(data);
   }
 
   componentDidMount() {
@@ -187,6 +192,7 @@ class Register extends Component {
     if (this.state.step === prevState.step) {
       this.registrationForm.current.setFieldsValue({...this.props.form})
       console.log("1 ", this.state.accessToken)
+      veridoc.setAccessToken(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
     }
     if (this.state.step !== prevState.step && this.state.step === 2) {
       console.log("2 ", this.state.accessToken)
@@ -196,15 +202,17 @@ class Register extends Component {
         veridoc.failCallback = this.failCallback;
         veridoc.errorCallback = this.errorCallback;
         veridoc.updateCallback = this.updateCallback;
-        veridoc.init("https://dev.verilive.verigram.ai/ru/veridoc/", "", this.config)
+        veridoc.init("https://services.verigram.ai:8443/s/veridoc/ru/veridoc/", "", this.config)
         .then(() => {
           console.log("INIT", this.state.accessToken?.access_token,this.state.accessToken?.person_id)
-          veridoc.setAccessToken(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
-          var session_token = veridoc.start();
-          //veridoc.start()
+
+          //var session_token = veridoc.start();
+          //console.log('session_id is: ' + session_id);
+          veridoc.start()
           // Successful initialization. Now you can start scanning.
         })
         .catch((e) => {
+          console.log("Error", e)
           // E.g. Show error to user.
         });
 
@@ -219,7 +227,7 @@ class Register extends Component {
       setTimeout(() => {
 
         verilive.init("https://services.verigram.ai:8443/s/verilive/verilive", "", this.configLive).then(data => {
-
+          verilive.successCallback = this.successVeriLiveCallback;
           verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
 
         }).catch(error => {
@@ -355,6 +363,15 @@ class Register extends Component {
       }
     }
 
+    function onStartButtonClick() {
+
+      let session_id = veridoc.start();
+
+      console.log('session_id is: ' + session_id);
+
+
+    }
+
     const {changeInput} = this.props
 
     const formIinData = {
@@ -379,7 +396,7 @@ class Register extends Component {
           name: "VeriDoc",
           label: "Биометрия документа",
           //rules: getRules("phone", 10),
-          children: <div id="id_veridoc"/>
+          children: <><div id="id_veridoc"/><button onClick={onStartButtonClick}>scan</button></>
         }
       ]
     }
