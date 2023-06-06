@@ -475,7 +475,7 @@ class Register extends Component {
       items: [
         {
           name: "VeriDoc",
-          label: "Биометрия документа",
+          label: "Биометрия документа Test",
           //rules: getRules("phone", 10),
           children: <div id="id_veridoc"/>
         }
@@ -585,7 +585,7 @@ class Register extends Component {
       },
       {
         key: 2,
-        label: `Беометрия документа Test`,
+        label: `Беометрия документа`,
         children: veriDoc(this.veriDoc)
       },
       {
