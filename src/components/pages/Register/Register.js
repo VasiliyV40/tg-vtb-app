@@ -585,7 +585,7 @@ class Register extends Component {
       },
       {
         key: 2,
-        label: `Беометрия документа`,
+        label: `Беометрия документа Test`,
         children: veriDoc(this.veriDoc)
       },
       {
