@@ -23,6 +23,7 @@ class Register extends Component {
       loading: false,
       formValid: [],
       accessToken: {},
+      callbackInit: false
     }
   }
 
@@ -173,9 +174,10 @@ class Register extends Component {
     console.log('VeriLiveCallback =>', data);
     this.setState({
       step: this.state.step + 1,
-      veriliveData: data
+      veriliveData: data,
+      callbackInit: true
     },function (){
-      notification.success({message: "Отлично", description: "Ваша личность верифицирована" , duration: 3 })
+      notification.success({message: "Отлично", description: "Биометрия лица прошла успешно" , duration: 3 })
     })
     //alert('success', data);
   }
@@ -206,6 +208,8 @@ class Register extends Component {
       })
     }).catch(error => console.log("getAccessTokenError", error))
   }
+
+
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("!!!!!!!!! verilive", verilive.version)
@@ -243,11 +247,13 @@ class Register extends Component {
       veridoc.dispose()
     }
     if (this.state.step !== prevState.step && this.state.step === 3) {
-      console.log("4 ", this.state.accessToken)
+      console.log("4 ", verilive.successCallback)
       setTimeout(() => {
 
         verilive.init("https://services.verigram.ai:8443/s/verilive/verilive", "", this.configLive).then(data => {
-          if(verilive.successCallback !== this.successVeriLiveCallback){verilive.successCallback = this.successVeriLiveCallback};
+          if(this.state.callbackInit !== true){
+            verilive.successCallback = this.successVeriLiveCallback
+          };
           verilive.start(this.state.accessToken?.access_token,this.state.accessToken?.person_id);
 
         }).catch(error => {
@@ -322,6 +328,8 @@ class Register extends Component {
         placement
       });
     };
+
+    console.log("!!!!!!!!!!!!!111111", verilive)
 
 
     const getList = (id) => {
