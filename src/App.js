@@ -77,7 +77,7 @@ class App extends Component {
 
     return (
       <div className={classes.app}>
-        <Header/>
+        {/*<Header/>*/}
 
           {routes}
 
