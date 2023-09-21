@@ -2,6 +2,7 @@ import React from 'react';
 import {Form, Input, Select} from "antd";
 import classes from './input.module.scss'
 import {MaskedInput} from "antd-mask-input";
+import TextInput from "../TextInput";
 
 const {Option} = Select;
 
@@ -20,7 +21,19 @@ const prefixSelector = (
 
 const PhoneInput = (props) => {
   return (
-    <MaskedInput
+    <TextInput
+      {...props}
+      addonBefore={prefixSelector}
+      style={{
+        width: '100%',
+      }}
+      type="text"
+      inputMode="tel"
+      size={"large"}
+      className={classes.input}
+    />
+
+    /*<MaskedInput
       {...props}
       addonBefore={prefixSelector}
       style={{
@@ -30,7 +43,7 @@ const PhoneInput = (props) => {
       size={"large"}
       mask={'(000) 000-00-00'}
       inputMode="tel"
-    />
+    />*/
   );
 };
 

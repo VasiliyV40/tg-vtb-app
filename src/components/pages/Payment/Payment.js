@@ -40,22 +40,22 @@ class Payment extends Component {
         icon: tele2,
         link: "#"
       },
-      {
+      /*{
         title: <div>1xbet.kz</div>,
         icon: xbet,
         link: "#"
-      },
-      {
+      },*/
+      /*{
         title: <div>Activ</div>,
         icon: activ,
         link: "#"
-      },
+      },*/
       {
         title: <div>olimpbet.kz</div>,
         icon: olimpbet,
         link: "#"
       },
-      {
+      /*{
         title: <div>Altel 4G</div>,
         icon: altel,
         link: "#"
@@ -64,7 +64,7 @@ class Payment extends Component {
         title: <div>Транспортная карта</div>,
         icon: onay,
         link: "#"
-      },
+      },*/
       {
         title: <div>ЮMoney</div>,
         icon: umoney,

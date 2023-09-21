@@ -4,6 +4,7 @@ import classes from "../notAutorized/Services/index.module.scss";
 import mir from "../../../images/mir-logo.svg";
 import vtb from "../../../images/vtb_icon.svg";
 import korona from "../../../images/korona_icon.svg";
+import wUnion from "../../../images/wUnion_icon.svg";
 
 import {Col, Row} from "antd";
 import ServiceButton from "../../ui/buttons/ServiceButton";
@@ -16,18 +17,26 @@ class Transfers extends Component {
       {
         title: <div>На карту<br/> МИР</div>,
         icon: mir,
-        link: "accounts"
+        link: "accounts",
+        bgColor: "#0F754E"
       },
       {
         title: <div>На карту<br/> ВТБ</div>,
         icon: vtb,
-        link: "issue-card"
+        link: "issue-card",
+        bgColor: "#00AAFF"
       },
       {
         title: <div>Золотая<br/>Корона</div>,
         icon: korona,
         link: "payments",
         bgColor: "#df212f"
+      },
+      {
+        title: <div>Western<br/>Union</div>,
+        icon: wUnion,
+        link: "western-union",
+        bgColor: "#000000"
       },
     ]
 

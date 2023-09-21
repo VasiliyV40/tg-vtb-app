@@ -1,5 +1,5 @@
-.button {
-  background-color: #4D81E9;
+.button, .button:not(:disabled) {
+  background-color: #3478F6;
   padding: 16px!important;
   box-shadow: none;
   font-weight: 600;
@@ -9,11 +9,11 @@
   height: auto !important;
 
   &:hover {
-    background-color: #6C97EE;
+    background-color: #4D81E9;
   }
   &.default {
-    background-color: #ffffff;
-    border-color: #4D81E9;
-    color: #4D81E9
+    background-color: transparent;
+    border-color: #3478F6;
+    color: #3478F6
   }
 }

@@ -8,6 +8,7 @@ const Select = (props) => {
   return (
     <div className={classes.wrapper}>
       <ANTSelect
+        {...props}
         className={classes.select}
         onChange={props.onChange}
         defaultValue={props.setDefault ? props.data[props.setDefault] : ""}

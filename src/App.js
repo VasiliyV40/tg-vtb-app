@@ -23,6 +23,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import OrderCallback from "./components/pages/OrderCallback/OrderCallback";
 import Register from "./components/pages/Register";
+import CardInfo from "./components/pages/CardInfo/CardInfo";
+import CreditApplication from "./components/pages/notAutorized/CreditApplication/CreditApplication";
+import SuccessPage from "./components/pages/SuccessPage/SuccessPage";
+import FailPage from "./components/pages/FailPage/FailPage";
 
 const {tg, onToggleButton} = useTelegram();
 
@@ -43,10 +47,13 @@ class App extends Component {
           <Route path={"credits"} element={<Credits/>}/>
           <Route path={"transfers"} element={<Transfers/>}/>
           <Route path={"credits/cash"} element={<Cash/>}/>
+          <Route path={"credits/form"} element={<CreditApplication/>}/>
           <Route path={"credits/auto"} element={<Auto/>}/>
           <Route path={"credits/consumer"} element={<Consumer/>}/>
           <Route path={"orderCallback"} element={<OrderCallback/>}/>
           <Route path={"registration"} element={<Register/>}/>
+          <Route path={"success"} element={<SuccessPage/>}/>
+          <Route path={"fail"} element={<FailPage/>}/>
         </Routes>
 
     )
@@ -60,6 +67,7 @@ class App extends Component {
           <Route path={"payments"} element={<Payment/>}/>
           <Route path={"issue-card"} element={<IssueCard/>}/>
           <Route path={"accounts"} element={<Accounts/>}/>
+          <Route path={"card-info"} element={<CardInfo/>}/>
           <Route path="signIn" element={!this.props.signIn ? <SignIn/> : <Navigate to="/" replace />}
           />
         </Routes>

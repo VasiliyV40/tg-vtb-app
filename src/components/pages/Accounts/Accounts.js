@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import classes from "../notAutorized/Services/index.module.scss";
 import {Card, Divider, Skeleton} from "antd";
 import AccountItem from "../../ui/account/AccountItem";
+import portmone from "../../../images/account/portmone_icon.svg";
+import calendar from '../../../images/account/calendar_icon.svg'
 
 
 class Accounts extends Component {
@@ -13,42 +15,36 @@ class Accounts extends Component {
 
   fetchDataObj = {
     totalSum: "3 637 293 ₸",
-    debt: "3 500 000 ₸",
-    account: [
+    debt: [
       {
-        type: 1,
-        name: "visa Gold",
+        type: 4,
+        name: "Ежемесячный платеж:",
         lastNumb: "5521",
         value: "460 341",
         currency: "₸"
       },
+    ],
+    account: [
       {
         type: 1,
-        name: "visa Platinum",
-        lastNumb: "0061",
-        value: "1 017 200",
+        name: "Текущий счет",
+        lastNumb: "Visa Gold *5521",
+        value: "460 341",
+        currency: "₸"
+      },
+      {
+        type: 2,
+        name: "Текущий счет",
+        lastNumb: "Visa Platinum *0061",
+        value: "1 341",
         currency: "$"
       },
       {
-        type: 2,
-        name: "mc Gold",
-        lastNumb: "9020",
-        value: "3 500",
+        type: 3,
+        name: "Текущий счет",
+        lastNumb: "MC Platinum *1194",
+        value: "4 641",
         currency: "€"
-      },
-      {
-        type: 2,
-        name: "mc Platinum",
-        lastNumb: "1194",
-        value: "4 200",
-        currency: "₸"
-      },
-      {
-        type: 1,
-        name: "visa Gold",
-        lastNumb: "5521",
-        value: "0",
-        currency: "₸"
       },
     ]
   }
@@ -73,12 +69,55 @@ class Accounts extends Component {
     return (
       <div className={classes.wrapper}>
 
-        <h2 style={{marginBottom: 20}}>Cчета</h2>
-        <Card
-          style={{borderRadius: 11}}
-          bodyStyle={{padding: "24px 16px 32px 16px"}}
+        <div
+          className={classes.card}
         >
           <Skeleton loading={loading} active>
+            <div className={classes.accIcon} style={{backgroundColor: "#4D81E9"}}><img src={portmone}/></div>
+            <div className={classes.balance}>
+              <span className={classes.title}>Общий баланс:</span>
+              <span className={classes.sumBig}>{data?.totalSum}</span>
+            </div>
+          </Skeleton>
+        </div>
+
+        <span className={classes.titleCounter}>Cчета ({data?.account?.length})</span>
+
+        <div
+          className={classes.card}
+        >
+          <Skeleton loading={loading} active>
+            <AccountItem data={data?.account}/>
+          </Skeleton>
+        </div>
+
+        <span className={classes.titleCounter}>Cчета ({data?.debt?.length})</span>
+
+        <div
+          className={classes.card}
+        >
+          <Skeleton loading={loading} active>
+            <div className={classes.accIcon} style={{backgroundColor: "#DE3B3B"}}>
+              <img src={calendar}/>
+
+            </div>
+            <span className={classes.credText}>
+              Ежемесячный<br/> платеж:
+            </span>
+            <div className={classes.balance}>
+              <span className={classes.sumMiddle}>{data?.totalSum}</span>
+              <span className={classes.title}>до 28 декабря</span>
+            </div>
+          </Skeleton>
+        </div>
+
+        {/*<Card
+          style={{borderRadius: 11}}
+          bodyStyle={{padding: "24px 16px 32px 16px"}}
+          className={classes.card}
+        >
+          <Skeleton loading={loading} active>
+            <div></div>
             <Divider orientation="left">Баланс:</Divider>
             <h1>{data?.totalSum}</h1>
 
@@ -94,7 +133,7 @@ class Accounts extends Component {
             <Divider orientation="left">Задолженность:</Divider>
             <h1>{data?.debt}</h1>
           </Skeleton>
-        </Card>
+        </Card>*/}
       </div>
     );
   }

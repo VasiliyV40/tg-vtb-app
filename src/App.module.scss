@@ -27,7 +27,7 @@ h3 {
 }
 
 p {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 18px;
   margin-bottom: 16px;
   &:last-child {
@@ -35,14 +35,7 @@ p {
   }
 }
 
-input {
-  font-size: 15px;
-  line-height: 18px;
 
-  &::placeholder {
-    color: red;
-  }
-}
 
 
 
@@ -62,21 +55,50 @@ input {
   .ant-form-item-has-error .ant-form-item-explain-error {
     color:#E53434;
   }
+  .ant-select {
+    .ant-select-selection-placeholder {
+      color: #9B9B9B;
+    }
+  }
+  .ant-select-single.ant-select-lg:not(.ant-select-customize-input) {
+    .ant-select-selector {
+      padding: 0 14px;
+    }
+  }
+  .ant-form-item {
+    input {
+      font-size: 15px;
+      line-height: 18px;
+      &::placeholder {
+        color: #9B9B9B;
+      }
+    }
+  }
+  .ant-tabs {
+    .ant-tabs-tab.ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: #3478F6;
+      }
+    }
+    .ant-tabs-ink-bar {
+      color: #3478F6;
+    }
+  }
 
   ul.list {
     color: #1677ff;
     li {
       color: #000000;
       vertical-align: text-bottom;
-      font-size: 16px;
+      font-size: 15px;
       line-height: 22px;
       list-style-type: none;
       position: relative;
       padding-left: 15px;
       &:before {
         position: absolute;
-        color: #1677ff;
-        content: "●";
+        color: #000000;
+        content: "•";
         padding-right: 10px ;
         top: 1px;
         left: 0;
@@ -84,7 +106,7 @@ input {
       }
       li:before {
         font-size: 7px;
-        content: "■";
+        content: "·";
       }
     }
   }

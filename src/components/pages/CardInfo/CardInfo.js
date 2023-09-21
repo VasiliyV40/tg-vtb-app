@@ -1,47 +1,32 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import classes from './cash.module.scss';
-import {
-  Card,
-  Col,
-  Form,
-  Row,
-  Tabs,
-  notification,
-  Divider,
-} from 'antd';
+import classes from "./cardInfo.module.scss";
+import vtbCard from "../../../images/page-img/vtb-card.png";
+import {Card, Col, Divider, Row} from "antd";
+import PrimaryButton from "../../ui/buttons/PrimaryButton";
 
-import PhoneInput from "../../../ui/inputs/PhoneInput";
-import PrimaryButton from "../../../ui/buttons/PrimaryButton";
-import {changeInput, clearForm} from "../../../../store/actions/gettingLoan";
-import TextInput from "../../../ui/inputs/TextInput";
-import Select from "../../../ui/selects/Select";
-import MaskInput from "../../../ui/inputs/MaskInput";
-import DateSelect from "../../../ui/selects/DateSelect";
-import Checkbox from "../../../ui/selects/Checkbox";
-import Loader from "../../../Loader/Loader";
 
-class Cash extends Component {
 
+class CardInfo extends Component {
   render() {
     return (
       <div className={classes.wrapper}>
-        <h1 style={{color: "#ffffff", textAlign: "left", padding: "0 16px", marginBottom: 16}}>Кредит<br/> наличными</h1>
+        <img alt="VTB карта" src={vtbCard} className={classes.creditCard}/>
+        <h1 style={{color: "#ffffff", textAlign: "left", padding: "0 16px", marginBottom: 16}}>Виртуальная карта&nbsp;Мир</h1>
         <Card
           className={classes.card}
           bodyStyle={{padding: "24px 16px 24px 16px"}}
         >
           <h3 style={{marginBottom: 16}}>
-            Заявка на получение кредита наличными без залога
+            Бесплатно, действует 3 года
           </h3>
-          <p style={{marginBottom: 16}}>
-            Уважаемый клиент! Вы можете заполнить предварительную заявку на получение кредита не посещая офис Банка.
+          <p style={{marginBottom: 0}}>
+            Идеальна для покупок онлайн. Привязывается к Samsung и Mir Pay.
           </p>
         </Card>
         <PrimaryButton
           style={{marginTop: 16}}
-          title="Отправить заявку"
-          link="/credits/form"
+          title="Заказать карту"
         />
         <Card
           className={classes.card}
@@ -102,17 +87,13 @@ class Cash extends Component {
   }
 }
 
+
 function mapStateToProps(state) {
-  return {
-    form: state.gettingLoan
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    changeInput: (name, value, filter) => dispatch(changeInput({name, value, filter})),
-    clearForm: ()=> dispatch(clearForm())
-  };
+  return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cash);
+export default connect(mapStateToProps,mapDispatchToProps)(CardInfo);

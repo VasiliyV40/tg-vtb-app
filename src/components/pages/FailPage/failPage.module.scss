@@ -1,0 +1,14 @@
+.wrapper {
+  padding: 24px 16px 24px 16px;
+  position: relative;
+  text-align: center;
+
+  .card {
+    text-align: center;
+
+    .icon {
+      margin-bottom: 6px;
+      width: 50px;
+    }
+  }
+}
