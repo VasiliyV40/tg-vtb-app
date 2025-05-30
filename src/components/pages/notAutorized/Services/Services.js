@@ -14,6 +14,7 @@ import {Col, Row, Modal, Space} from 'antd';
 import Slider from "../../../Slider";
 import SliderModal from "../../../ui/modal/SliderModal";
 import {Link} from "react-router-dom";
+import {signIn} from "../../../../store/actions/authorization";
 
 
 
@@ -100,7 +101,13 @@ class Services extends Component {
               })
             }
           </Row>
-          <PrimaryButton title="Войти в личный кабинет" link="signIn" />
+          <PrimaryButton
+            title="Войти в личный кабинет"
+            //link="signIn"
+            onClick={() => {
+              this.props.signIn()
+            }}
+          />
           <Space
             align="center"
             direction="vertical"
@@ -123,7 +130,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    signIn: () => dispatch(signIn())
+  };
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Services);

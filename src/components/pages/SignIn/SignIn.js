@@ -29,10 +29,8 @@ class SignIn extends Component {
   render() {
 
     const loginHandler =  () => {
-
       this.loginForm.current.validateFields()
         .then(data => {
-          console.log("Valid")
           this.setState({
             loading: true
           });
@@ -46,7 +44,6 @@ class SignIn extends Component {
         })
     };
 
-    console.log("66666666666666 ", this.props)
     const {changeInput} = this.props
 
     const getRules = (id, val) => {
@@ -77,8 +74,6 @@ class SignIn extends Component {
       }
     }
 
-
-
     return (
       <>
         <div  className={`${classes.wrapper} ${this.state.loading ? classes.loading : ""}`}>
@@ -107,7 +102,7 @@ class SignIn extends Component {
                   }
                 ]}
               >
-                <PhoneInput name={"login"} onChange={e => changeInput("login", e.unmaskedValue)}/>
+                <PhoneInput name={"login"} onChange={e => changeInput("login", e.target.value)}/>
               </Form.Item>
               <Form.Item
                 name="password"
